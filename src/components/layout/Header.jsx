@@ -28,9 +28,9 @@ const Header = () => {
                         <li>
                             <Link to="/contact">문의</Link>
                         </li>
-                        <li>
+                        {/* <li>
                             <Link to="/"></Link>
-                        </li>
+                        </li> */}
                     </ul>
                 </nav>
             </div>

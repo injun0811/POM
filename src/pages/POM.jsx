@@ -1,10 +1,16 @@
 import React from "react";
+import { UserDiv } from "../styled/page/User";
+import { HoldingHeaderDiv } from "../styled/common/HoldingHeader";
 
 const POM = () => {
     return (
-        <div>
-            <h1>POM Page</h1>
-        </div>
+        <UserDiv>
+            <HoldingHeaderDiv>
+                <div className="inner">
+                    <h1>POM Page</h1>
+                </div>
+            </HoldingHeaderDiv>
+        </UserDiv>
     );
 };
 
