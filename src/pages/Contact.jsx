@@ -4,7 +4,9 @@ import { ContactDiv } from "../styled/page/Contact";
 const Contact = () => {
     return (
         <ContactDiv>
-            <h1>Contact Page</h1>
+            <div className="inner">
+                <h1>Contact Page</h1>
+            </div>
         </ContactDiv>
     );
 };

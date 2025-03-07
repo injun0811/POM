@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { mediaQueries } from "../breakpoints";
 
-export const ContactDiv = styled.div`
+export const ServiceDiv = styled.div`
     height: 700px;
     background: rgb(198, 240, 181);
     display: flex;
