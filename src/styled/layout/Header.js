@@ -54,3 +54,39 @@ export const HeaderDiv = styled.div`
         }
     }
 `;
+
+export const SubMenuDiv = styled.div`
+    position: fixed;
+    top: 150px; // HeaderDiv의 높이와 동일
+    left: 0;
+    right: 0;
+    height: ${(props) => (props.isHovered ? "100px" : "0")};
+    overflow: hidden;
+    transition: height 0.3s ease-in-out;
+    background: rgb(198, 240, 181);
+    z-index: 999; // HeaderDiv보다 낮은 z-index
+    display: flex;
+    justify-content: center;
+
+    .inner {
+        width: 70%;
+        max-width: 1200px;
+        height: 100%;
+        padding: 20px;
+        background: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    ul {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+    }
+
+    li a {
+        text-decoration: none;
+        color: #333;
+    }
+`;
