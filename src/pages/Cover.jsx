@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import AccessButton from "../components/AccessButton";
+import AccessButton from "../components/common/AccessButton";
 import { CoverContainer } from "../styled/Cover";
 import { HoldingHeaderDiv } from "../styled/common/HoldingHeader";
 

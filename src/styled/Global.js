@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import styled from "styled-components";
 
-const GolbalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
     * {
         margin: 0;
         padding: 0;
@@ -51,4 +51,4 @@ export const Background = styled.div`
     }
 `;
 
-export default GolbalStyle;
+export default GlobalStyle;

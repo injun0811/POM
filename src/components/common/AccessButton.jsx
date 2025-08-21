@@ -1,5 +1,5 @@
 import React from "react";
-import { AccessBtn } from "../styled/common/AccessButton";
+import { AccessBtn } from "../../styled/common/AccessButton";
 
 const AccessButton = ({ onClick }) => {
     return (

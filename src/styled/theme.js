@@ -1,3 +1,3 @@
 import styled from "styled-components";
 
-export const theme = styled.div``;
+export const Theme = styled.div``;

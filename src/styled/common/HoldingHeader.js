@@ -3,7 +3,7 @@ import { mediaQueries } from "../breakpoints";
 
 export const HoldingHeaderDiv = styled.div`
     min-height: 700px;
-    background: rgb(198, 240, 181);
+    background: var(--main-background);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -11,7 +11,8 @@ export const HoldingHeaderDiv = styled.div`
 
     .inner {
         flex: 1;
-        width: 70%;
+        //width: 70%;
+        width: 1200px;
         max-width: 1200px;
         padding: 20px;
         text-align: center;

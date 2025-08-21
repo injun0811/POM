@@ -10,6 +10,7 @@ import { AppDiv } from "./styled/App";
 import Signup from "./pages/user/Signup";
 import Login from "./pages/user/Login";
 import Admin from "./pages/user/Admin";
+import { Background } from "./styled/Global";
 
 function App() {
     return (
@@ -17,17 +18,19 @@ function App() {
             <AppDiv>
                 <Header />
                 <main>
-                    <Routes>
-                        <Route path="/" element={<Cover />} />
-                        <Route path="/pom" element={<POM />} />
-                        <Route path="/about" element={<About />} />
-                        <Route path="/contact" element={<Contact />} />
-                        <Route path="/services" element={<Services />} />
+                    <Background>
+                        <Routes>
+                            <Route path="/" element={<Cover />} />
+                            <Route path="/pom" element={<POM />} />
+                            <Route path="/about" element={<About />} />
+                            <Route path="/contact" element={<Contact />} />
+                            <Route path="/services" element={<Services />} />
 
-                        <Route path="/signup" element={<Signup />} />
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/admin" element={<Admin />} />
-                    </Routes>
+                            <Route path="/signup" element={<Signup />} />
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/admin" element={<Admin />} />
+                        </Routes>
+                    </Background>
                 </main>
                 <Footer />
             </AppDiv>
