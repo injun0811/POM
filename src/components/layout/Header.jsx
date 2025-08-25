@@ -65,7 +65,7 @@ const Header = () => {
                                 <Link to="/about/intro">Intro</Link>
                             </li>
                             <li>
-                                {/* 나에 대해서 */}
+                                {/* 제작자 소개 */}
                                 <Link to="/about/aboutMe">About Me</Link>
                             </li>
                             <li>
@@ -91,12 +91,17 @@ const Header = () => {
                                 <Link to="/services/VM">VM</Link>
                             </li>
                             <li>
+                                {/* 일정 관리 schedule management */}
+                                <Link to="/services/SM">SM</Link>
+                            </li>
+                            <li>
                                 {/* 소규모 기능 ETC */}
                                 <Link to="/services/ETC">ETC</Link>
                             </li>
                         </ul>
                         <ul>
                             <li>
+                                {/* 간단 게시판 */}
                                 <Link to="/contact/board">Board</Link>
                             </li>
                         </ul>

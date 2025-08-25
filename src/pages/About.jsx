@@ -1,4 +1,5 @@
 import React from "react";
+import { Outlet } from "react-router-dom";
 import { MainDiv } from "../styled/page/About";
 import { HoldingHeaderDiv } from "../styled/common/HoldingHeader";
 
@@ -7,7 +8,7 @@ const About = () => {
         <MainDiv>
             <HoldingHeaderDiv>
                 <div className="inner">
-                    <h1>About Page</h1>
+                    <Outlet />
                 </div>
             </HoldingHeaderDiv>
         </MainDiv>
