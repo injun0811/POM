@@ -1,4 +1,5 @@
 import React from "react";
+import { Outlet } from "react-router-dom";
 import { ContactDiv } from "../styled/page/Contact";
 import { HoldingHeaderDiv } from "../styled/common/HoldingHeader";
 
@@ -7,7 +8,7 @@ const Contact = () => {
         <ContactDiv>
             <HoldingHeaderDiv>
                 <div className="inner">
-                    <h1>Contact Page</h1>
+                    <Outlet />
                 </div>
             </HoldingHeaderDiv>
         </ContactDiv>

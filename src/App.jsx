@@ -12,6 +12,7 @@ import Login from "./pages/user/Login";
 import Admin from "./pages/user/Admin";
 import { Intro, AboutMe, Career } from "./pages/about/index";
 import { Guideline, HAB, FCM, VM, SM, ETC } from "./pages/services/index";
+import { Board } from "./pages/contact/index";
 import { Background } from "./styled/Global";
 
 function App() {
@@ -28,18 +29,16 @@ function App() {
 
                             <Route path="/about" element={<About />}>
                                 {/* 웹 사이트 소개 */}
-                                <Route path="Intro" index element={<Intro />} />
+                                <Route path="Intro" element={<Intro />} index />
                                 {/* 제작자 소개 */}
                                 <Route path="AboutMe" element={<AboutMe />} />
                                 {/* 개발 이력 */}
                                 <Route path="Career" element={<Career />} />
                             </Route>
 
-                            <Route path="/contact" element={<Contact />} />
-
                             <Route path="/services" element={<Services />}>
                                 {/* service (기능)에 대한 간단한 가이드 */}
-                                <Route path="guideline" element={<Guideline />} />
+                                <Route path="Guideline" element={<Guideline />} index />
                                 {/* 가계부 household account book */}
                                 <Route path="HAB" element={<HAB />} />
                                 {/* 식비 관리 food cost management */}
@@ -50,6 +49,11 @@ function App() {
                                 <Route path="SM" element={<SM />} />
                                 {/* 소규모 기능 ETC */}
                                 <Route path="ETC" element={<ETC />} />
+                            </Route>
+
+                            <Route path="/contact" element={<Contact />}>
+                                {/* 간단 게시판 */}
+                                <Route path="Board" element={<Board />} index />
                             </Route>
 
                             <Route path="/signup" element={<Signup />} />
