@@ -9,4 +9,5 @@ export const ScrollWrapper = styled.div`
     padding: 24px 12px;
     scroll-snap-type: x mandatory; /* 월별 스냅 효과 */
     cursor: grab;
+    user-select: none;
 `;

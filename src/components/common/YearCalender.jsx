@@ -25,21 +25,21 @@ const YearCalender = ({ year = 2025 }) => {
     const onMouseDown = (e) => {
         isDragging.current = true;
         scrollRef.current.classList.add("dragging");
-        startX.current = e.pageX - scrollRef.current.scrollLeft;
+        startX.current = e.pageX;
         dragScrollLeft.current = scrollRef.current.scrollLeft;
-    };
-    const onMouseLeave = () => {
-        isDragging.current = false;
-        scrollRef.current.classList.remove("dragging");
+        window.addEventListener("mousemove", onMouseMove);
+        window.addEventListener("mouseup", onMouseUp);
     };
     const onMouseUp = () => {
         isDragging.current = false;
         scrollRef.current.classList.remove("dragging");
+        window.removeEventListener("mousemove", onMouseMove);
+        window.removeEventListener("mouseup", onMouseUp);
     };
     const onMouseMove = (e) => {
         if (!isDragging.current) return;
-        const x = e.pageX - scrollRef.current.offsetLeft;
-        const walk = (x - startX) * 1.1;
+        e.preventDefault();
+        const walk = (e.pageX - startX.current) * 1.1;
         scrollRef.current.scrollLeft = dragScrollLeft.current - walk;
     };
 
@@ -62,10 +62,8 @@ const YearCalender = ({ year = 2025 }) => {
             ref={scrollRef}
             tabIndex={0}
             onKeyDown={handleKeyDown}
-            onMouseDown={onMouseDown}
-            onMouseLeave={onMouseLeave}
             onMouseUp={onMouseUp}
-            onMouseMove={onMouseMove}
+            onMouseDown={onMouseDown}
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             style={{ outline: "none" }}
