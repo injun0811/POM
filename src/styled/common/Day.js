@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const Day = styled.div`
+export const Daydiv = styled.div`
     width: 40px;
     height: 40px;
     margin: 0 2px 2px 0;
@@ -12,6 +12,7 @@ export const Day = styled.div`
     cursor: pointer;
     transition: background 0.2s, color 0.2s;
     outline: none;
+    align-content: center;
 
     /* 오늘 날짜일 때 */
     ${(props) =>
@@ -39,24 +40,25 @@ export const Day = styled.div`
             cursor: not-allowed;
         `}
 
-    &:hover:not(:disabled) {
+    /* 빈칸(hover 불가) */
+    ${({ $isBlank }) =>
+        $isBlank &&
+        css`
+            cursor: default;
+            pointer-events: none; /* hover, 클릭 모두 막기 */
+        `}
+
+    &:hover:not(:disabled):not([isBlank]) {
         background: #e3f2fd;
     }
+
+    ${({ $isHeader }) =>
+        $isHeader &&
+        css`
+            font-weight: bold;
+            background: transparent;
+            color: #1976d2;
+            cursor: default;
+            pointer-events: none;
+        `}
 `;
-
-const Day = ({ day, isToday = false, isSelected = false, isOutside = false, onClick = () => {} }) => (
-    <DayWrapper
-        isToday={isToday}
-        isSelected={isSelected}
-        isOutside={isOutside}
-        disabled={isOutside}
-        tabIndex={-1}
-        onClick={() => {
-            if (!isOutside) onClick(day);
-        }}
-    >
-        {day}
-    </DayWrapper>
-);
-
-export default Day;

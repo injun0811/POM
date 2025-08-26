@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-export const Calender = styled.section`
+export const Calenderdiv = styled.section`
     width: 340px;
     padding: 16px;
-    background: #fafafa;
+    background: ${({ $bgColor }) => $bgColor || "#fafafa"};
     border-radius: 12px;
     box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
     margin: 0 auto;

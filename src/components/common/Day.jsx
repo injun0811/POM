@@ -1,8 +1,13 @@
 import React from "react";
-import { Day } from "../../styled/common/Day";
+import { Daydiv } from "../../styled/common/Day";
 
-const Day = () => {
-    return <Day></Day>;
+const Day = ({ day, isHeader }) => {
+    const isBlank = day === "";
+    return (
+        <Daydiv $isBlank={isBlank} $isHeader={isHeader}>
+            {day}
+        </Daydiv>
+    );
 };
 
 export default Day;
