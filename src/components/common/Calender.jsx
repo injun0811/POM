@@ -3,8 +3,17 @@ import { Calenderdiv, MonthTitle, WeekRow, WeeksWrapper } from "../../styled/com
 import Day from "./Day";
 import { MONTH_COLOR, WEEKDAYS } from "../../utils/monthInfo";
 
-const Calender = ({ year = 2025, month = 8 }) => {
+const Calender = ({ year = 2025, month = 8, selectedDate, setSelectedDate, isSolo, $isCompact }) => {
     const bgColor = MONTH_COLOR[month - 1];
+
+    const handleDayClick = (day) => {
+        if (day === "") return;
+        if (selectedDate && selectedDate.year === year && selectedDate.month === month && selectedDate.day === day) {
+            setSelectedDate(null);
+        } else {
+            setSelectedDate({ year, month, day });
+        }
+    };
 
     const getMonthMatrix = (year, month) => {
         const result = [];
@@ -29,30 +38,49 @@ const Calender = ({ year = 2025, month = 8 }) => {
 
     const daysMatrix = getMonthMatrix(year, month);
 
+    // 조건부 스타일 적용: 선택된 월(isSolo)이거나 compact 모드가 아닐 때만 표시
+    const compactStyle = {
+        opacity: !$isCompact || isSolo ? 1 : 0,
+        width: !$isCompact || isSolo ? "375px" : "0",
+        transition: "opacity 0.5s, width 0.5s",
+        overflow: "hidden",
+        flexShrink: 0,
+        margin: "0 auto",
+    };
+
     return (
-        <Calenderdiv $bgColor={bgColor}>
-            <MonthTitle>
-                {year}년 {month}월
-            </MonthTitle>
-            <WeekRow>
-                {WEEKDAYS.map((name, idx) => {
-                    return <Day key={idx} day={name} isHeader />;
-                })}
-            </WeekRow>
-            <WeeksWrapper>
-                {daysMatrix.map((week, wIdx) => {
-                    // week 7개가 모두 빈칸인 경우, 렌더링 미처리
-                    if (week.every((cell) => cell === "")) return null;
-                    return (
-                        <WeekRow key={wIdx}>
-                            {week.map((d, dIdx) => {
-                                return <Day key={dIdx} day={d} />;
-                            })}
-                        </WeekRow>
-                    );
-                })}
-            </WeeksWrapper>
-        </Calenderdiv>
+        <div style={compactStyle}>
+            <Calenderdiv $bgColor={bgColor}>
+                <MonthTitle>
+                    {year}년 {month}월
+                </MonthTitle>
+                <WeekRow>
+                    {WEEKDAYS.map((name, idx) => {
+                        return <Day key={idx} day={name} isHeader />;
+                    })}
+                </WeekRow>
+                <WeeksWrapper>
+                    {daysMatrix.map((week, wIdx) => {
+                        // week 7개가 모두 빈칸인 경우, 렌더링 미처리
+                        if (week.every((cell) => cell === "")) return null;
+                        return (
+                            <WeekRow key={wIdx}>
+                                {week.map((d, dIdx) => {
+                                    return (
+                                        <Day
+                                            key={dIdx}
+                                            day={d}
+                                            isSelected={selectedDate && selectedDate.day === d && selectedDate.year === year && selectedDate.month === month}
+                                            onClick={() => handleDayClick(d)}
+                                        />
+                                    );
+                                })}
+                            </WeekRow>
+                        );
+                    })}
+                </WeeksWrapper>
+            </Calenderdiv>
+        </div>
     );
 };
 

@@ -24,16 +24,18 @@ export const Daydiv = styled.div`
         `}
 
     /* 선택일 때 */
-    ${(props) =>
-        props.isSelected &&
+    ${({ $isSelected }) =>
+        $isSelected &&
         css`
             background: #90caf9;
             color: #222;
+            box-shadow: 0 0 0 2px #1976d2; // 예시: 선택 강조
+            font-weight: bold;
         `}
 
     /* 비활성(이번달 아님) */
-    ${(props) =>
-        props.isOutside &&
+    ${({ $isOutside }) =>
+        $isOutside &&
         css`
             color: #ccc;
             background: #f5f5f5;
