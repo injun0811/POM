@@ -1,18 +1,12 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Header from "./components/layout/Header";
-import Footer from "./components/layout/Footer";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import Services from "./pages/Services";
-import Cover from "./pages/Cover";
-import POM from "./pages/POM";
 import { AppDiv } from "./styled/App";
-import Signup from "./pages/user/Signup";
-import Login from "./pages/user/Login";
-import Admin from "./pages/user/Admin";
+import { About, Contact, Services, Cover, POM } from "./pages/index";
+import { Signup, Login, Admin } from "./pages/user/index";
 import { Intro, AboutMe, Career } from "./pages/about/index";
 import { Guideline, HAB, FCM, VM, SM, ETC } from "./pages/services/index";
 import { Board } from "./pages/contact/index";
+import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
 import { Background } from "./styled/Global";
 
 function App() {

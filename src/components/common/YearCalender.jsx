@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ScheduleDiv, ScrollWrapper, ScheduleListDiv, ScheduleAddDiv } from "../../styled/common/YearCalender";
 import Calender from "./Calender";
+import ScheduleList from "./ScheduleList";
 
 const YearCalender = ({ year = 2025 }) => {
     const scrollRef = useRef(null);
@@ -108,6 +109,10 @@ const YearCalender = ({ year = 2025 }) => {
                     <ScheduleListDiv $isCompact={!!selectedDate}>
                         {/* 일정 LIST DIV */}
                         <h3>일정 List</h3>
+                        <ul>
+                            {/* li 를 이용한 일정 LIST */}
+                            <ScheduleList></ScheduleList>
+                        </ul>
                     </ScheduleListDiv>
                     <ScheduleAddDiv $isCompact={!!selectedDate}>
                         <h3>일정 등록</h3>
