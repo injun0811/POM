@@ -2,20 +2,19 @@ import React, { useEffect, useState } from "react";
 import supabase from "../../services/supabaseClient";
 
 const GuideLine = () => {
-    const [tests, setTest] = useState([]);
+    const [scheduleList, setScheduleList] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchTest = async () => {
-            const { data, error } = await supabase.from("testTable").select("*");
+        const fetchScheduleList = async () => {
+            const { data, error } = await supabase.from("schedule_list").select("*");
             if (error) console.error("Error fetching items:", error);
             else {
-                console.log("data:", data);
-                setTest(data || []);
+                setScheduleList(data || []);
                 setLoading(false);
             }
         };
-        fetchTest();
+        fetchScheduleList();
     }, []);
 
     if (loading)
@@ -32,9 +31,17 @@ const GuideLine = () => {
                 <h1>서비스 가이드</h1>
                 <h2>Guideline</h2>
                 <ul>
-                    {tests.map((test) => (
-                        <li key={test.seq_no}>
-                            {test.seq_no} / {test.text}
+                    {scheduleList.map((schedule) => (
+                        <li key={schedule.idx}>
+                            <div>
+                                {schedule.idx} / {schedule.title} / {schedule.desc}
+                            </div>
+                            <div>
+                                {schedule.memo} / {schedule.user_id}
+                            </div>
+                            <div>
+                                {schedule.category} / {schedule.reg_date}
+                            </div>
                         </li>
                     ))}
                 </ul>

@@ -31,11 +31,6 @@ export const ScheduleListDiv = styled.div`
     width: ${({ $isCompact }) => ($isCompact ? "350px" : "0px")};
     transition: opacity 1s, visibility 1s, width 1s;
     overflow: hidden;
-
-    ul {
-        background: #90caf9;
-        border-radius: 12px;
-    }
 `;
 
 export const ScheduleAddDiv = styled.div`
