@@ -1,11 +1,67 @@
-import React, { useState, useEffect } from "react";
-import { ScheduleLi, HeaderDiv, DescDiv, InfoDiv, IconDiv } from "../../styled/common/ScheduleList";
+import React, { useState, useEffect, useRef } from "react";
+import { ScheduleLi, HeaderDiv, DescDiv, InfoDiv, IconDiv, CategoryDiv, DescP, PopupDiv } from "../../styled/common/ScheduleList";
 import supabase from "../../services/supabaseClient";
+import AutoScrollSection from "./AutoScrollSection";
+import holidayIcon from "../../assets/icons/holiday.png";
+import alertIcon from "../../assets/icons/alert.png";
+import memoIcon from "../../assets/icons/memo.png";
+import placeIcon from "../../assets/icons/place.png";
 
 const ScheduleList = () => {
     const [scheduleList, setScheduleList] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const [popup, setPopup] = useState({ visible: false, x: 0, y: 0, data: null });
+    const detailRef = useRef();
+
+    // 아이콘 활성화 클래스명 반환
+    const getIconClass = (schedule, type) => {
+        return "popup-trigger " + (popup.visible && popup.data && schedule.idx === popup.data.idx && popup.data.title === dataToShow(schedule, type).title ? "active" : "");
+    };
+
+    // 팝업에 표시할 데이터 가공
+    const dataToShow = (schedule, type) => {
+        switch (type) {
+            case "place":
+                return {
+                    title: "장소",
+                    value: schedule.place || "",
+                    extra: schedule.place_url || null,
+                };
+            case "memo":
+                return {
+                    title: "메모",
+                    value: schedule.memo || "",
+                };
+            case "alert":
+                return {
+                    title: "알람",
+                    value: schedule.alert_date || "",
+                    is_alert: !!schedule.is_alert,
+                };
+            case "holiday":
+                return {
+                    title: "휴일",
+                    value: schedule.is_holiday ? "휴일" : "",
+                };
+        }
+    };
+
+    // 팝업 토글
+    const handleImgClick = (e, schedule, type) => {
+        if (popup.visible && popup.data && popup.data.title === dataToShow(schedule, type).title && schedule.idx === popup.data.idx) {
+            setPopup((popup) => ({ ...popup, visible: false }));
+        } else {
+            setPopup({
+                visible: true,
+                x: e.clientX + 20,
+                y: e.clientY + 20,
+                data: { ...dataToShow(schedule, type), idx: schedule.idx },
+            });
+        }
+    };
+
+    // 일정 리스트 가져오기
     useEffect(() => {
         const fetchScheduleList = async () => {
             const { data, error } = await supabase.from("schedule_list").select("*");
@@ -16,6 +72,21 @@ const ScheduleList = () => {
             }
         };
         fetchScheduleList();
+    }, []);
+
+    // 팝업 외부 클릭 시 닫기
+    useEffect(() => {
+        const handleClick = (e) => {
+            if (detailRef.current && detailRef.current.contains(e.target)) {
+                return;
+            }
+            if (e.target.classList.contains("popup-trigger")) {
+                return;
+            }
+            setPopup((popup) => ({ ...popup, visible: false }));
+        };
+        document.addEventListener("mousedown", handleClick);
+        return () => document.removeEventListener("mousedown", handleClick);
     }, []);
 
     if (loading)
@@ -45,45 +116,74 @@ const ScheduleList = () => {
 
                         <DescDiv>
                             {/* 일정 내용 */}
-                            {schedule.desc}
+                            <AutoScrollSection>{schedule.desc}</AutoScrollSection>
+
+                            {/* 사용자 */}
+                            <DescP>{schedule.user_id}</DescP>
                         </DescDiv>
 
                         <InfoDiv>
-                            {/* 일정 카테고리 */}
-                            <div>{schedule.category}</div>
-
-                            {/* 사용자 */}
-                            <div>{schedule.user_id}</div>
-
-                            {/* 장소 - 아이콘 처리 후 마우스 올리면 DIV 생성되어 주소와 지도API 표시 */}
-                            {schedule.place}
-                            <div>
-                                <img alt="holiday" src="../assets/icons/holiday.png" />
-                            </div>
+                            <CategoryDiv>
+                                {/* 일정 카테고리 */}
+                                <div>{schedule.category}</div>
+                            </CategoryDiv>
 
                             <IconDiv>
-                                {/* 메모 - 아이콘 처리 후 마우스 올리면 DIV 생성되어 메모 내용 표시 */}
-                                {schedule.memo}
+                                {/* 장소 - 주소API로 지도 표시 */}
+                                {schedule.place !== "" && (
+                                    <div className={getIconClass(schedule, "place")}>
+                                        <img alt="place" src={placeIcon} onClick={(e) => handleImgClick(e, schedule, "place")} className="popup-trigger" />
+                                    </div>
+                                )}
 
-                                {/* 알람 - 아이콘 처리 후 마우스 올리면 DIV 생성되어 알람 시간 표시 */}
-                                {schedule.is_alert}
-                                {/* 알람 일시 */}
-                                {schedule.alert_date}
+                                {/* 메모 */}
+                                {schedule.memo !== "" && (
+                                    <div className={getIconClass(schedule, "memo")}>
+                                        <img alt="memo" src={memoIcon} onClick={(e) => handleImgClick(e, schedule, "memo")} className="popup-trigger" />
+                                    </div>
+                                )}
 
-                                {/* 하루 종일 일정 - 리스트 DIV 맨 위에 줄 길게 생성 처리 */}
+                                {/* 알람 - 알람 입력되면 알람 시간도 함께 필수 입력 되도록 처리 필요 */}
+                                {schedule.is_alert && (
+                                    <div className={getIconClass(schedule, "alert")}>
+                                        <img alt="alert" src={alertIcon} onClick={(e) => handleImgClick(e, schedule, "alert")} className="popup-trigger" />
+                                    </div>
+                                )}
+
+                                {/* 하루 종일 일정 - 일정 내용과 일정 등록자 배경에 색 줄 그림 처리 */}
                                 {schedule.is_allday}
+                                {/* 휴일 */}
+                                {schedule.is_holiday && (
+                                    <div className={getIconClass(schedule, "holiday")}>
+                                        <img alt="holiday" src={holidayIcon} onClick={(e) => handleImgClick(e, schedule, "holiday")} className="popup-trigger" />
+                                    </div>
+                                )}
 
-                                {/* 휴일 - 날짜 표시에 빨간색으로 처리 (보통은 흰색, 검정색 처리) */}
-                                {schedule.is_holiday}
-
-                                {/* 완료 - 일정 내용 글자에 가운데 줄 긋기 처리 */}
+                                {/* 완료 - 일정 제목에 가운데 줄 긋기 처리 */}
                                 {schedule.is_completed}
-                                {/* 완료 일자 */}
+                                {/* 완료 일자 - 일정 제목에 hover 시 div 생성되어 완료 날짜 표시 */}
                                 {schedule.is_completed_date}
                             </IconDiv>
                         </InfoDiv>
                     </ScheduleLi>
                 ))}
+
+                {/* 팝업 DIV */}
+                <PopupDiv ref={detailRef} $top={popup.y} $left={popup.x} $show={popup.visible} style={{ pointerEvents: popup.visible ? "auto" : "none" }}>
+                    {popup.data && (
+                        <>
+                            <strong>{popup.data.title}</strong>
+                            <div style={{ marginTop: 6 }}>{popup.data.value}</div>
+                            {popup.data.extra && (
+                                <div style={{ marginTop: 6 }}>
+                                    <a href={popup.data.extra} target="_blank" rel="noopener noreferrer">
+                                        지도보기
+                                    </a>
+                                </div>
+                            )}
+                        </>
+                    )}
+                </PopupDiv>
             </>
         );
     }

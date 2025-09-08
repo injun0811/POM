@@ -10,14 +10,12 @@ export const ScheduleDiv = styled.div`
 export const ScrollWrapper = styled.div`
     width: ${({ $isCompact }) => ($isCompact ? "375px" : "100%")};
 
-    // gap: 32px;
-    // overflow-x: auto; /* 가로 스크롤로 여러 달 렌더링 */
-
     gap: ${({ $isCompact }) => ($isCompact ? "0" : "32px")};
     overflow-x: ${({ $isCompact }) => ($isCompact ? "hidden" : "auto")};
 
     display: flex;
-    padding: 24px 12px;
+    align-items: center;
+    margin: 0 auto;
     scroll-snap-type: x mandatory; /* 월별 스냅 효과 */
     cursor: grab;
     user-select: none;
@@ -25,12 +23,19 @@ export const ScrollWrapper = styled.div`
 `;
 
 export const ScheduleListDiv = styled.div`
+    user-select: none;
     opacity: ${({ $isCompact }) => ($isCompact ? 1 : 0)};
     visibility: ${({ $isCompact }) => ($isCompact ? "visible" : "hidden")};
     pointer-events: ${({ $isCompact }) => ($isCompact ? "auto" : "none")};
-    width: ${({ $isCompact }) => ($isCompact ? "350px" : "0px")};
+    width: ${({ $isCompact }) => ($isCompact ? "375px" : "0px")};
+    justify-items: center;
     transition: opacity 1s, visibility 1s, width 1s;
     overflow: hidden;
+
+    ul {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
 `;
 
 export const ScheduleAddDiv = styled.div`

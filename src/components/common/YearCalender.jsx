@@ -108,7 +108,6 @@ const YearCalender = ({ year = 2025 }) => {
                 <>
                     <ScheduleListDiv $isCompact={!!selectedDate}>
                         {/* 일정 LIST DIV */}
-                        <h3>일정 List</h3>
                         <ul>
                             {/* li 를 이용한 일정 LIST */}
                             <ScheduleList></ScheduleList>
