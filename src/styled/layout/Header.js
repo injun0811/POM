@@ -60,7 +60,7 @@ export const HeaderDiv = styled.div`
 
 export const SubMenuDiv = styled.div`
     position: fixed;
-    top: 120px;
+    top: 140px;
     left: 0;
     right: 0;
     z-index: 999;

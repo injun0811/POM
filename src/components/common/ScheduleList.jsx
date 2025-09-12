@@ -2,10 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { ScheduleLi, HeaderDiv, DescDiv, InfoDiv, IconDiv, CategoryDiv, DescP, PopupDiv } from "../../styled/common/ScheduleList";
 import supabase from "../../services/supabaseClient";
 import AutoScrollSection from "./AutoScrollSection";
-import holidayIcon from "../../assets/icons/holiday.png";
-import alertIcon from "../../assets/icons/alert.png";
-import memoIcon from "../../assets/icons/memo.png";
-import placeIcon from "../../assets/icons/place.png";
+import { holidayIcon, alertIcon, memoIcon, placeIcon } from "../../assets/icons/index";
 
 const ScheduleList = () => {
     const [scheduleList, setScheduleList] = useState([]);
