@@ -1,5 +1,5 @@
 import React from "react";
-import YearCalender from "../../components/common/YearCalender";
+import Year from "../../components/common/Year";
 
 const SM = () => {
     return (
@@ -7,7 +7,7 @@ const SM = () => {
             <h1>일정 관리</h1>
             <h2>schedule management</h2>
             <div>
-                <YearCalender year={2025} />
+                <Year year={2025} />
             </div>
         </div>
     );

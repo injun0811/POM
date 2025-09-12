@@ -1,9 +1,9 @@
 import React from "react";
-import { Calenderdiv, MonthTitle, WeekRow, WeeksWrapper } from "../../styled/common/Calender";
+import { WeekSection, MonthTitle, WeekRow, WeeksWrapper } from "../../styled/common/Month";
 import Day from "./Day";
 import { MONTH_COLOR, WEEKDAYS } from "../../utils/monthInfo";
 
-const Calender = ({ year = 2025, month = 8, selectedDate, setSelectedDate, isSolo, $isCompact }) => {
+const Month = ({ year = now.getFullYear(), month = now.getMonth() + 1, selectedDate, setSelectedDate, isSolo, $isCompact }) => {
     const bgColor = MONTH_COLOR[month - 1];
 
     const handleDayClick = (day) => {
@@ -50,7 +50,7 @@ const Calender = ({ year = 2025, month = 8, selectedDate, setSelectedDate, isSol
 
     return (
         <div style={compactStyle}>
-            <Calenderdiv $bgColor={bgColor}>
+            <WeekSection $bgColor={bgColor}>
                 <MonthTitle>
                     {year}년 {month}월
                 </MonthTitle>
@@ -79,9 +79,9 @@ const Calender = ({ year = 2025, month = 8, selectedDate, setSelectedDate, isSol
                         );
                     })}
                 </WeeksWrapper>
-            </Calenderdiv>
+            </WeekSection>
         </div>
     );
 };
 
-export default Calender;
+export default Month;

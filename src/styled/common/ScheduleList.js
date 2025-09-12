@@ -1,5 +1,14 @@
 import styled from "styled-components";
 
+export const LoadingDiv = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    font-size: 24px;
+    color: #555;
+`;
+
 export const ScheduleLi = styled.li`
     margin: 15px;
     width: 320px;

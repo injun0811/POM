@@ -1,7 +1,7 @@
 // 일정 관련 아이콘 이미지들
-import holiday from "./holiday.png";
-import alert from "./alert.png";
-import memo from "./memo.png";
-import place from "./place.png";
+import holidayIcon from "./holiday.png";
+import alertIcon from "./alert.png";
+import memoIcon from "./memo.png";
+import placeIcon from "./place.png";
 
-export { holiday, alert, memo, place };
+export { holidayIcon, alertIcon, memoIcon, placeIcon };

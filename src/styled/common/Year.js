@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const YearCalender = styled.div``;
+export const Year = styled.div``;
 
 export const ScheduleDiv = styled.div`
     gap: 30px;
@@ -28,6 +28,7 @@ export const ScheduleListDiv = styled.div`
     visibility: ${({ $isCompact }) => ($isCompact ? "visible" : "hidden")};
     pointer-events: ${({ $isCompact }) => ($isCompact ? "auto" : "none")};
     width: ${({ $isCompact }) => ($isCompact ? "375px" : "0px")};
+    height: 390px;
     justify-items: center;
     transition: opacity 1s, visibility 1s, width 1s;
     overflow: hidden;

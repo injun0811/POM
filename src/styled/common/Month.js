@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
-export const Calenderdiv = styled.section`
+export const WeekSection = styled.section`
     width: 340px;
+    height: 390px;
     padding: 16px;
     background: ${({ $bgColor }) => $bgColor || "#fafafa"};
     border-radius: 12px;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ScheduleLi, HeaderDiv, DescDiv, InfoDiv, IconDiv, CategoryDiv, DescP, PopupDiv } from "../../styled/common/ScheduleList";
+import { LoadingDiv, ScheduleLi, HeaderDiv, DescDiv, InfoDiv, IconDiv, CategoryDiv, DescP, PopupDiv } from "../../styled/common/ScheduleList";
 import supabase from "../../services/supabaseClient";
 import AutoScrollSection from "./AutoScrollSection";
 import { holidayIcon, alertIcon, memoIcon, placeIcon } from "../../assets/icons/index";
@@ -89,7 +89,7 @@ const ScheduleList = () => {
     if (loading)
         return (
             <>
-                <h2>loading...</h2>
+                <LoadingDiv>loading...</LoadingDiv>
             </>
         );
     else {

@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ScheduleDiv, ScrollWrapper, ScheduleListDiv, ScheduleAddDiv } from "../../styled/common/YearCalender";
-import Calender from "./Calender";
+import { ScheduleDiv, ScrollWrapper, ScheduleListDiv, ScheduleAddDiv } from "../../styled/common/Year";
+import Month from "./Month";
 import ScheduleList from "./ScheduleList";
 
-const YearCalender = ({ year = 2025 }) => {
+const Year = ({ year = 2025 }) => {
     const scrollRef = useRef(null);
     const [selectedDate, setSelectedDate] = useState(null);
     const [showSM, setShowSM] = useState(false);
@@ -92,7 +92,7 @@ const YearCalender = ({ year = 2025 }) => {
                 style={{ outline: "none" }}
             >
                 {Array.from({ length: 12 }, (_, i) => (
-                    <Calender
+                    <Month
                         key={i}
                         year={year}
                         month={i + 1}
@@ -137,4 +137,4 @@ const YearCalender = ({ year = 2025 }) => {
     );
 };
 
-export default YearCalender;
+export default Year;
