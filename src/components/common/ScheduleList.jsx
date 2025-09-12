@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import { LoadingDiv, ScheduleLi, HeaderDiv, DescDiv, InfoDiv, IconDiv, CategoryDiv, DescP, PopupDiv } from "../../styled/common/ScheduleList";
+import { LoadingDiv, ScheduleLi, HeaderDiv, DescDiv, InfoDiv, IconDiv, CategoryDiv, DescP, PopupDiv, CompleteDiv } from "../../styled/common/ScheduleList";
 import supabase from "../../services/supabaseClient";
 import AutoScrollSection from "./AutoScrollSection";
 import { holidayIcon, alertIcon, memoIcon, placeIcon } from "../../assets/icons/index";
+import Allday_toggle from "../../assets/css/Allday_toggle";
 
 const ScheduleList = ({ selectedDate }) => {
     const [scheduleList, setScheduleList] = useState([]);
@@ -52,7 +53,7 @@ const ScheduleList = ({ selectedDate }) => {
         }
     };
 
-    // 팝업 토글
+    // 팝업 토글 (클릭)
     const handleImgClick = (e, schedule, type) => {
         if (popup.visible && popup.data && popup.data.title === dataToShow(schedule, type).title && schedule.idx === popup.data.idx) {
             setPopup((popup) => ({ ...popup, visible: false }));
@@ -64,6 +65,20 @@ const ScheduleList = ({ selectedDate }) => {
                 data: { ...dataToShow(schedule, type), idx: schedule.idx },
             });
         }
+    };
+
+    // 팝업 토글 (호버)
+    const handleImgHover = (e, schedule) => {
+        setPopup({
+            visible: true,
+            x: e.clientX + 20,
+            y: e.clientY + 20,
+            data: { title: "완료일", value: schedule.completed_date, idx: schedule.idx },
+        });
+    };
+
+    const handleImgHoverLeave = () => {
+        setPopup((popup) => ({ ...popup, visible: false }));
     };
 
     // 일정 리스트 가져오기
@@ -105,14 +120,21 @@ const ScheduleList = ({ selectedDate }) => {
             <>
                 {filteredList.map((schedule) => (
                     <ScheduleLi key={schedule.idx}>
-                        {/* https://uiverse.io/SouravBandyopadhyay/rude-tiger-29 */}
-                        {/* https://uiverse.io/Samalander0/sweet-eel-98 */}
+                        {/* All-Day 직관적으로 보여줄 CSS List */}
+                        {/* https://uiverse.io/Admin12121/stupid-mouse-29 */}
+                        {/* https://uiverse.io/Ali-Tahmazi99/breezy-squid-90 */}
+                        {/* https://uiverse.io/Galahhad/strong-squid-82 */}
 
                         <HeaderDiv>
-                            <div>
-                                {/* 일정 제목 */}
-                                {schedule.title}
-                            </div>
+                            {/* 일정 제목 */}
+                            {schedule.is_completed ? (
+                                <CompleteDiv onMouseEnter={(e) => handleImgHover(e, schedule)} onMouseLeave={handleImgHoverLeave}>
+                                    {schedule.title}
+                                </CompleteDiv>
+                            ) : (
+                                <div>{schedule.title}</div>
+                            )}
+
                             <time>
                                 {/* 일정 등록 일자 */}
                                 {schedule.reg_date.slice(0, 10)}
@@ -130,7 +152,10 @@ const ScheduleList = ({ selectedDate }) => {
                         <InfoDiv>
                             <CategoryDiv>
                                 {/* 일정 카테고리 */}
-                                <div>{schedule.category}</div>
+                                {/* <div>{schedule.category}</div> */}
+
+                                {/* 하루 종일 일정 - 일정 내용과 일정 등록자 배경에 색 줄 그림 처리 */}
+                                {schedule.is_allday && <Allday_toggle></Allday_toggle>}
                             </CategoryDiv>
 
                             <IconDiv>
@@ -155,19 +180,12 @@ const ScheduleList = ({ selectedDate }) => {
                                     </div>
                                 )}
 
-                                {/* 하루 종일 일정 - 일정 내용과 일정 등록자 배경에 색 줄 그림 처리 */}
-                                {schedule.is_allday}
                                 {/* 휴일 */}
                                 {schedule.is_holiday && (
                                     <div className={getIconClass(schedule, "holiday")}>
                                         <img alt="holiday" src={holidayIcon} onClick={(e) => handleImgClick(e, schedule, "holiday")} className="popup-trigger" />
                                     </div>
                                 )}
-
-                                {/* 완료 - 일정 제목에 가운데 줄 긋기 처리 */}
-                                {schedule.is_completed}
-                                {/* 완료 일자 - 일정 제목에 hover 시 div 생성되어 완료 날짜 표시 */}
-                                {schedule.is_completed_date}
                             </IconDiv>
                         </InfoDiv>
                     </ScheduleLi>

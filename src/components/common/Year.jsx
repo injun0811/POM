@@ -92,19 +92,33 @@ const Year = ({ year = 2025 }) => {
                 onTransitionEnd={handleTransitionEnd}
                 style={{ outline: "none" }}
             >
-                {Array.from({ length: 12 }, (_, i) => (
+                {selectedDate ? (
+                    // 선택 모드: Month 한 개만 보여줌
                     <Month
-                        key={i}
                         year={year}
-                        month={i + 1}
+                        month={selectedDate.month}
                         selectMonth={selectedMonth}
                         setSelectedMonth={setSelectedMonth}
                         selectedDate={selectedDate}
                         setSelectedDate={setSelectedDate}
-                        isSolo={!!selectedDate && selectedDate.month === i + 1}
-                        $isCompact={!!selectedDate}
+                        isSolo
+                        $isCompact
                     />
-                ))}
+                ) : (
+                    Array.from({ length: 12 }, (_, i) => (
+                        <Month
+                            key={i}
+                            year={year}
+                            month={i + 1}
+                            selectMonth={selectedMonth}
+                            setSelectedMonth={setSelectedMonth}
+                            selectedDate={selectedDate}
+                            setSelectedDate={setSelectedDate}
+                            isSolo={!!selectedDate && selectedDate.month === i + 1}
+                            $isCompact={!!selectedDate}
+                        />
+                    ))
+                )}
             </ScrollWrapper>
 
             {showSM && (

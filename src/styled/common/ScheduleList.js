@@ -116,3 +116,8 @@ export const PopupDiv = styled.div`
     pointer-events: ${({ $show }) => ($show ? "auto" : "none")};
     transition: opacity 0.5s;
 `;
+
+export const CompleteDiv = styled.div`
+    text-decoration: line-through;
+    color: white;
+`;
