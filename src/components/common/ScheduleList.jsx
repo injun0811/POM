@@ -4,12 +4,20 @@ import supabase from "../../services/supabaseClient";
 import AutoScrollSection from "./AutoScrollSection";
 import { holidayIcon, alertIcon, memoIcon, placeIcon } from "../../assets/icons/index";
 
-const ScheduleList = () => {
+const ScheduleList = ({ selectedDate }) => {
     const [scheduleList, setScheduleList] = useState([]);
     const [loading, setLoading] = useState(true);
 
     const [popup, setPopup] = useState({ visible: false, x: 0, y: 0, data: null });
     const detailRef = useRef();
+
+    const filteredList = selectedDate
+        ? scheduleList.filter((schedule) => {
+              const schedDate = schedule.start_date.slice(0, 10); // [start_date] "YYYY-MM-DD"
+              const sel = `${selectedDate.year}-${String(selectedDate.month).padStart(2, "0")}-${String(selectedDate.day).padStart(2, "0")}`; // [selectedDate] "YYYY-MM-DD"
+              return schedDate === sel;
+          })
+        : [];
 
     // 아이콘 활성화 클래스명 반환
     const getIconClass = (schedule, type) => {
@@ -95,7 +103,7 @@ const ScheduleList = () => {
     else {
         return (
             <>
-                {scheduleList.map((schedule) => (
+                {filteredList.map((schedule) => (
                     <ScheduleLi key={schedule.idx}>
                         {/* https://uiverse.io/SouravBandyopadhyay/rude-tiger-29 */}
                         {/* https://uiverse.io/Samalander0/sweet-eel-98 */}

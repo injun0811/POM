@@ -3,11 +3,12 @@ import { WeekSection, MonthTitle, WeekRow, WeeksWrapper } from "../../styled/com
 import Day from "./Day";
 import { MONTH_COLOR, WEEKDAYS } from "../../utils/monthInfo";
 
-const Month = ({ year = now.getFullYear(), month = now.getMonth() + 1, selectedDate, setSelectedDate, isSolo, $isCompact }) => {
+const Month = ({ year, month, setSelectedMonth, selectedDate, setSelectedDate, isSolo, $isCompact }) => {
     const bgColor = MONTH_COLOR[month - 1];
 
     const handleDayClick = (day) => {
         if (day === "") return;
+        setSelectedMonth(month);
         if (selectedDate && selectedDate.year === year && selectedDate.month === month && selectedDate.day === day) {
             setSelectedDate(null);
         } else {

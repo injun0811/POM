@@ -5,6 +5,7 @@ import ScheduleList from "./ScheduleList";
 
 const Year = ({ year = 2025 }) => {
     const scrollRef = useRef(null);
+    const [selectedMonth, setSelectedMonth] = useState(null);
     const [selectedDate, setSelectedDate] = useState(null);
     const [showSM, setShowSM] = useState(false);
 
@@ -96,6 +97,8 @@ const Year = ({ year = 2025 }) => {
                         key={i}
                         year={year}
                         month={i + 1}
+                        selectMonth={selectedMonth}
+                        setSelectedMonth={setSelectedMonth}
                         selectedDate={selectedDate}
                         setSelectedDate={setSelectedDate}
                         isSolo={!!selectedDate && selectedDate.month === i + 1}
@@ -110,7 +113,7 @@ const Year = ({ year = 2025 }) => {
                         {/* 일정 LIST DIV */}
                         <ul>
                             {/* li 를 이용한 일정 LIST */}
-                            <ScheduleList></ScheduleList>
+                            <ScheduleList selectedDate={selectedDate}></ScheduleList>
                         </ul>
                     </ScheduleListDiv>
                     <ScheduleAddDiv $isCompact={!!selectedDate}>
