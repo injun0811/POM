@@ -105,11 +105,6 @@ const ScheduleList = ({ selectedDate, scheduleList = [], loading }) => {
             <>
                 {filteredList.map((schedule) => (
                     <ScheduleLi key={schedule.idx}>
-                        {/* All-Day 직관적으로 보여줄 CSS List */}
-                        {/* https://uiverse.io/Admin12121/stupid-mouse-29 */}
-                        {/* https://uiverse.io/Ali-Tahmazi99/breezy-squid-90 */}
-                        {/* https://uiverse.io/Galahhad/strong-squid-82 */}
-
                         <HeaderDiv>
                             {/* 일정 제목 */}
                             {schedule.is_completed ? (

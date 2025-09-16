@@ -11,11 +11,11 @@ import { Background } from "./styled/Global";
 
 function App() {
     return (
-        <Router>
-            <AppDiv>
-                <Header />
-                <main>
-                    <Background>
+        <Background>
+            <Router>
+                <AppDiv>
+                    <Header />
+                    <main>
                         <Routes>
                             <Route path="/" element={<Cover />} />
 
@@ -54,11 +54,11 @@ function App() {
                             <Route path="/login" element={<Login />} />
                             <Route path="/admin" element={<Admin />} />
                         </Routes>
-                    </Background>
-                </main>
-                <Footer />
-            </AppDiv>
-        </Router>
+                    </main>
+                    <Footer />
+                </AppDiv>
+            </Router>
+        </Background>
     );
 }
 

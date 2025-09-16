@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { HeaderDiv, SubMenuDiv } from "../../styled/layout/Header";
 import SVG from "../SVG";
 import Button from "../../components/common/MechanicalButton";
-import { Background } from "../../styled/Global";
 
 const Header = () => {
     const [isHovered, setIsHovered] = useState(false);
@@ -19,42 +18,40 @@ const Header = () => {
     return (
         <>
             <HeaderDiv>
-                <Background>
-                    <div className="inner">
-                        <div className="LogoSection">
-                            <Link to="/">
-                                <SVG />
-                            </Link>
-                        </div>
-                        <div className="AuthSection">
-                            <Button desc={"Signup"} url={"/signup"} $hight={"3"} $width={"2"} />
-                            <Button desc={"Login"} url={"/login"} $hight={"3"} $width={"2"} />
-                            {/* <Button desc={"Admin"} url={"/admin"} $hight={"3"} $width={"2"} /> */}
-                        </div>
-                        <nav>
-                            <ul>
-                                <li>
-                                    <Link to="/about/intro" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                                        Set me up
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/services/guideline" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                                        Services
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/contact/board" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                                        Contact
-                                    </Link>
-                                </li>
-                                {/* <li>
+                <div className="inner">
+                    <div className="LogoSection">
+                        <Link to="/">
+                            <SVG />
+                        </Link>
+                    </div>
+                    <div className="AuthSection">
+                        <Button desc={"Signup"} url={"/signup"} $hight={"3"} $width={"2"} />
+                        <Button desc={"Login"} url={"/login"} $hight={"3"} $width={"2"} />
+                        {/* <Button desc={"Admin"} url={"/admin"} $hight={"3"} $width={"2"} /> */}
+                    </div>
+                    <nav>
+                        <ul>
+                            <li>
+                                <Link to="/about/intro" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                                    Set me up
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/services/guideline" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                                    Services
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/contact/board" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                                    Contact
+                                </Link>
+                            </li>
+                            {/* <li>
                             <Link to="/"></Link>
                         </li> */}
-                            </ul>
-                        </nav>
-                    </div>
-                </Background>
+                        </ul>
+                    </nav>
+                </div>
             </HeaderDiv>
             <SubMenuDiv $isHovered={isHovered} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                 <div className="inner">
