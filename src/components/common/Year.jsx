@@ -3,7 +3,7 @@ import { ScheduleDiv, ScrollWrapper, ScheduleListDiv, ScheduleAddDiv } from "../
 import Month from "./Month";
 import ScheduleList from "./ScheduleList";
 
-const Year = ({ year = 2025 }) => {
+const Year = ({ year = 2025, scheduleList = [], loading }) => {
     const scrollRef = useRef(null);
     const [selectedMonth, setSelectedMonth] = useState(null);
     const [selectedDate, setSelectedDate] = useState(null);
@@ -103,6 +103,7 @@ const Year = ({ year = 2025 }) => {
                         setSelectedDate={setSelectedDate}
                         isSolo
                         $isCompact
+                        scheduleList={scheduleList}
                     />
                 ) : (
                     Array.from({ length: 12 }, (_, i) => (
@@ -116,6 +117,7 @@ const Year = ({ year = 2025 }) => {
                             setSelectedDate={setSelectedDate}
                             isSolo={!!selectedDate && selectedDate.month === i + 1}
                             $isCompact={!!selectedDate}
+                            scheduleList={scheduleList}
                         />
                     ))
                 )}
@@ -127,7 +129,7 @@ const Year = ({ year = 2025 }) => {
                         {/* 일정 LIST DIV */}
                         <ul>
                             {/* li 를 이용한 일정 LIST */}
-                            <ScheduleList selectedDate={selectedDate}></ScheduleList>
+                            <ScheduleList selectedDate={selectedDate} scheduleList={scheduleList} loading={loading}></ScheduleList>
                         </ul>
                     </ScheduleListDiv>
                     <ScheduleAddDiv $isCompact={!!selectedDate}>

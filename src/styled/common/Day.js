@@ -50,10 +50,12 @@ export const Daydiv = styled.div`
             pointer-events: none; /* hover, 클릭 모두 막기 */
         `}
 
+    /* hover 효과 */
     &:hover:not(:disabled):not([isBlank]) {
         background: #e3f2fd;
     }
 
+    /* 헤더 셀 */
     ${({ $isHeader }) =>
         $isHeader &&
         css`
@@ -62,5 +64,14 @@ export const Daydiv = styled.div`
             color: #1976d2;
             cursor: default;
             pointer-events: none;
+        `}
+
+    /* 일정이 있는 날 */
+    ${({ $hasSchedule }) =>
+        $hasSchedule &&
+        css`
+            background: #ffc700;
+            color: white;
+            font-weight: bold;
         `}
 `;

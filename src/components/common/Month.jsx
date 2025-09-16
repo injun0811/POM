@@ -3,7 +3,7 @@ import { WeekSection, MonthTitle, WeekRow, WeeksWrapper } from "../../styled/com
 import Day from "./Day";
 import { MONTH_COLOR, WEEKDAYS } from "../../utils/monthInfo";
 
-const Month = ({ year, month, setSelectedMonth, selectedDate, setSelectedDate, isSolo, $isCompact }) => {
+const Month = ({ year, month, setSelectedMonth, selectedDate, setSelectedDate, isSolo, $isCompact, scheduleList = [] }) => {
     const bgColor = MONTH_COLOR[month - 1];
 
     const handleDayClick = (day) => {
@@ -67,11 +67,14 @@ const Month = ({ year, month, setSelectedMonth, selectedDate, setSelectedDate, i
                         return (
                             <WeekRow key={wIdx}>
                                 {week.map((d, dIdx) => {
+                                    const hasSchedule =
+                                        d !== "" && !!scheduleList.find((item) => item.start_date.slice(0, 10) === `${year}-${String(month).padStart(2, "0")}-${String(d).padStart(2, "0")}`);
                                     return (
                                         <Day
                                             key={dIdx}
                                             day={d}
                                             isSelected={selectedDate && selectedDate.day === d && selectedDate.year === year && selectedDate.month === month}
+                                            hasSchedule={hasSchedule}
                                             onClick={() => handleDayClick(d)}
                                         />
                                     );

@@ -1,17 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { LoadingDiv, ScheduleLi, HeaderDiv, DescDiv, InfoDiv, IconDiv, CategoryDiv, DescP, PopupDiv, CompleteDiv } from "../../styled/common/ScheduleList";
-import supabase from "../../services/supabaseClient";
 import AutoScrollSection from "./AutoScrollSection";
 import { holidayIcon, alertIcon, memoIcon, placeIcon } from "../../assets/icons/index";
 import Allday_toggle from "../../assets/css/Allday_toggle";
 
-const ScheduleList = ({ selectedDate }) => {
-    const [scheduleList, setScheduleList] = useState([]);
-    const [loading, setLoading] = useState(true);
-
+const ScheduleList = ({ selectedDate, scheduleList = [], loading }) => {
     const [popup, setPopup] = useState({ visible: false, x: 0, y: 0, data: null });
     const detailRef = useRef();
 
+    // 선택된 날짜의 일정만 필터링
     const filteredList = selectedDate
         ? scheduleList.filter((schedule) => {
               const schedDate = schedule.start_date.slice(0, 10); // [start_date] "YYYY-MM-DD"
@@ -77,22 +74,10 @@ const ScheduleList = ({ selectedDate }) => {
         });
     };
 
+    // 팝업 호버 아웃
     const handleImgHoverLeave = () => {
         setPopup((popup) => ({ ...popup, visible: false }));
     };
-
-    // 일정 리스트 가져오기
-    useEffect(() => {
-        const fetchScheduleList = async () => {
-            const { data, error } = await supabase.from("schedule_list").select("*");
-            if (error) console.error("Error fetching items:", error);
-            else {
-                setScheduleList(data || []);
-                setLoading(false);
-            }
-        };
-        fetchScheduleList();
-    }, []);
 
     // 팝업 외부 클릭 시 닫기
     useEffect(() => {
@@ -155,7 +140,7 @@ const ScheduleList = ({ selectedDate }) => {
                                 {/* <div>{schedule.category}</div> */}
 
                                 {/* 하루 종일 일정 - 일정 내용과 일정 등록자 배경에 색 줄 그림 처리 */}
-                                {schedule.is_allday && <Allday_toggle></Allday_toggle>}
+                                {schedule.is_allday && <Allday_toggle />}
                             </CategoryDiv>
 
                             <IconDiv>
