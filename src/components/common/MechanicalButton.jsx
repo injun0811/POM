@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 /*
 버튼 컴포넌트
-    props : 버튼 내용, 이동 경로, 가로길이(em), 세로딜길이(em)
+    props : 버튼 내용, 이동 경로, 가로길이(px), 세로딜길이(px)
 */
 
 const Button = ({ desc, url, $hight, $width }) => {
@@ -23,9 +23,9 @@ const StyledWrapper = styled.div`
     .button {
         position: relative;
         overflow: hidden;
-        height: ${(props) => `${props.$hight}em`};
-        padding: 0 ${(props) => `${props.$width}em`};
-        border-radius: 1.5rem;
+        height: ${(props) => `${props.$hight}px`};
+        padding: 0 ${(props) => `${props.$width}px`};
+        border-radius: 24px;
         background: #3d3a4e;
         background-size: 400%;
         color: #fff;

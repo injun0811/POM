@@ -36,7 +36,7 @@ export const HeaderDiv = styled.div`
             li {
                 position: relative; /* 중메뉴와 연결을 위한 상대 위치 */
                 a {
-                    font-size: 1.5rem;
+                    font-size: 24px;
                     text-decoration: none;
                     color: white;
                     padding: 30px 20px; /* 클릭 가능한 영역 확장 */
@@ -49,7 +49,7 @@ export const HeaderDiv = styled.div`
 
     .AuthSection {
         display: flex;
-        gap: 2rem;
+        gap: 26px;
         justify-content: end;
         a {
             text-decoration: none;
@@ -94,7 +94,7 @@ export const SubMenuDiv = styled.div`
 
     li {
         padding: ${(props) => (props.$isHovered ? "15px 0" : "0")};
-        font-size: ${(props) => (props.$isHovered ? "1.2rem" : "0")};
+        font-size: ${(props) => (props.$isHovered ? "19px" : "0")};
         text-align: center;
         opacity: ${(props) => (props.$isHovered ? "1" : "0")};
         transition: opacity 0.2s ease-in-out;

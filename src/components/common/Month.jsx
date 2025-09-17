@@ -43,7 +43,7 @@ const Month = ({ year, month, setSelectedMonth, selectedDate, setSelectedDate, i
     const compactStyle = {
         opacity: !$isCompact || isSolo ? 1 : 0,
         width: !$isCompact || isSolo ? "375px" : "0",
-        transition: "opacity 0.5s, width 0.5s",
+        transition: "opacity 0.5s, width 0.5s, overflow 0.5s",
         overflow: "hidden",
         flexShrink: 0,
         margin: "0 auto",

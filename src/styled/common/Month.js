@@ -24,7 +24,7 @@ export const WeekRow = styled.div`
 export const MonthTitle = styled.h2`
     text-align: center;
     margin-bottom: 10px;
-    font-size: 1.1rem;
+    font-size: 18px;
     color: #1976d2;
-    letter-spacing: 0.2em;
+    letter-spacing: 3px;
 `;

@@ -25,8 +25,8 @@ const Header = () => {
                         </Link>
                     </div>
                     <div className="AuthSection">
-                        <Button desc={"Signup"} url={"/signup"} $hight={"3"} $width={"2"} />
-                        <Button desc={"Login"} url={"/login"} $hight={"3"} $width={"2"} />
+                        <Button desc={"Signup"} url={"/signup"} $hight={"40"} $width={"26"} />
+                        <Button desc={"Login"} url={"/login"} $hight={"40"} $width={"26"} />
                         {/* <Button desc={"Admin"} url={"/admin"} $hight={"3"} $width={"2"} /> */}
                     </div>
                     <nav>

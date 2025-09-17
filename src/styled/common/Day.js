@@ -7,7 +7,7 @@ export const Daydiv = styled.div`
     border: none;
     background: #fff;
     color: #222;
-    font-size: 1rem;
+    font-size: 16px;
     border-radius: 50%;
     cursor: pointer;
     transition: background 0.2s, color 0.2s;

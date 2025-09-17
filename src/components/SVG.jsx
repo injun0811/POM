@@ -11,8 +11,8 @@ const SVG = () => {
 
 const StyledWrapper = styled.div`
     .loader {
-        width: 5em;
-        height: 5em;
+        width: 80px;
+        height: 80px;
         background: linear-gradient(-45deg, #fc00ff 0%, #00dbde 100%);
         animation: spin 3s infinite;
     }
