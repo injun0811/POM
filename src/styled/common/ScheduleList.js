@@ -11,9 +11,8 @@ export const LoadingDiv = styled.div`
 `;
 
 export const ScheduleLi = styled(motion.li)`
-    margin: 15px;
     width: 320px;
-    height: 120px;
+    height: 130px;
     background: #90caf9;
     border-radius: 12px;
 
@@ -28,7 +27,7 @@ export const ScheduleLi = styled(motion.li)`
 
 export const HeaderDiv = styled.div`
     padding: 5px;
-    justify-content: space-around;
+    justify-content: space-between;
     display: flex;
 
     div {

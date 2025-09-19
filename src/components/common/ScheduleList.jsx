@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { LoadingDiv, ScheduleLi, HeaderDiv, DescDiv, InfoDiv, IconDiv, CategoryDiv, DescP, PopupDiv, CompleteDiv, MotionUl } from "../../styled/common/ScheduleList";
 import AutoScrollSection from "./AutoScrollSection";
+import CheckBoxDiv from "./CheckBox";
 import { holidayIcon, alertIcon, memoIcon, placeIcon } from "../../assets/icons/index";
 import Allday_toggle from "../../assets/css/Allday_toggle";
 
@@ -109,6 +110,7 @@ const ScheduleList = ({ selectedDate, scheduleList = [], loading }) => {
                                 <ScheduleLi key={schedule.idx} initial={{ opacity: 0, y: 0 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 0 }} transition={{ duration: 0.4 }}>
                                     <HeaderDiv>
                                         {/* 일정 제목 */}
+                                        {schedule.is_completed ? <CheckBoxDiv checked={!!schedule.is_completed}></CheckBoxDiv> : ""}
                                         {schedule.is_completed ? (
                                             <CompleteDiv onMouseEnter={(e) => handleImgHover(e, schedule)} onMouseLeave={handleImgHoverLeave}>
                                                 {schedule.title}

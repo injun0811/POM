@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ScheduleDiv, ScrollWrapper, ScheduleListDiv, ScheduleAddDiv } from "../../styled/common/Year";
 import Month from "./Month";
 import ScheduleList from "./ScheduleList";
+import ScheduleAdd from "./ScheduleAdd";
 
 const Year = ({ year = 2025, scheduleList = [], loading }) => {
     const scrollRef = useRef(null);
@@ -103,7 +104,7 @@ const Year = ({ year = 2025, scheduleList = [], loading }) => {
                             onTouchMove={onTouchMove}
                             $isCompact={!!selectedDate}
                             onTransitionEnd={handleTransitionEnd}
-                            style={{ outline: "none" }}
+                            style={{ outline: "none", padding: "10px 0" }}
                         >
                             {Array.from({ length: 12 }, (_, i) => (
                                 <Month
@@ -130,7 +131,7 @@ const Year = ({ year = 2025, scheduleList = [], loading }) => {
                         animate={{ opacity: 1, scale: 1, x: 0 }}
                         exit={{ opacity: 0, x: 0 }}
                         transition={{ duration: 0.4 }}
-                        style={{ display: "flex", width: "100%", gap: 30 }}
+                        style={{ display: "flex", width: "100%", gap: 30, justifyContent: "left", padding: "10px 0" }}
                     >
                         <ScrollWrapper ref={scrollRef} tabIndex={0} $isCompact={true} style={{ outline: "none" }}>
                             <Month
@@ -159,6 +160,8 @@ const Year = ({ year = 2025, scheduleList = [], loading }) => {
                                 <ScheduleList selectedDate={selectedDate} scheduleList={scheduleList} loading={loading}></ScheduleList>
                             </ScheduleListDiv>
                             <ScheduleAddDiv $isCompact={!!selectedDate}>
+                                {/* 일정 등록 DIV */}
+                                <ScheduleAdd></ScheduleAdd>
                                 <h3>일정 등록</h3>
                                 {/* 시작 날짜 DIV */}
 
