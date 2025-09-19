@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const WeekSection = styled.section`
-    width: 340px;
+    width: 360px;
     height: 390px;
     padding: 16px;
     background: ${({ $bgColor }) => $bgColor || "#fafafa"};

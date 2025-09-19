@@ -9,29 +9,19 @@ export const ScheduleDiv = styled.div`
 
 export const ScrollWrapper = styled.div`
     width: ${({ $isCompact }) => ($isCompact ? "375px" : "100%")};
-
-    gap: ${({ $isCompact }) => ($isCompact ? "0" : "32px")};
-    overflow-x: ${({ $isCompact }) => ($isCompact ? "hidden" : "auto")};
-
+    gap: ${({ $isCompact }) => ($isCompact ? "0" : "15px")};
+    overflow-x: auto;
     display: flex;
     align-items: center;
-    margin: 0 auto;
     scroll-snap-type: x mandatory; /* 월별 스냅 효과 */
     cursor: grab;
     user-select: none;
-    transition: width 0.5s;
+    transition: width 0.5s, gap 0.5s;
 `;
 
 export const ScheduleListDiv = styled.div`
     user-select: none;
-    opacity: ${({ $isCompact }) => ($isCompact ? 1 : 0)};
-    visibility: ${({ $isCompact }) => ($isCompact ? "visible" : "hidden")};
-    pointer-events: ${({ $isCompact }) => ($isCompact ? "auto" : "none")};
-    width: ${({ $isCompact }) => ($isCompact ? "375px" : "0px")};
-    height: 390px;
     justify-items: center;
-    transition: opacity 1s, visibility 1s, width 1s;
-    overflow: hidden;
 
     ul {
         overflow-y: auto;

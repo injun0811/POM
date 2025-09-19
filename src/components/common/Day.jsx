@@ -1,12 +1,15 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { Daydiv } from "../../styled/common/Day";
 
 const Day = ({ day, isSelected, isHeader, hasSchedule = false, onClick }) => {
     const isBlank = day === "";
     return (
-        <Daydiv $isBlank={isBlank} $isHeader={isHeader} $isSelected={isSelected} $hasSchedule={hasSchedule} onClick={isBlank ? undefined : onClick}>
-            {day}
-        </Daydiv>
+        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
+            <Daydiv $isBlank={isBlank} $isHeader={isHeader} $isSelected={isSelected} $hasSchedule={hasSchedule} onClick={isBlank ? undefined : onClick}>
+                {day}
+            </Daydiv>
+        </motion.div>
     );
 };
 

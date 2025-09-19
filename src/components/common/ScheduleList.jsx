@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { LoadingDiv, ScheduleLi, HeaderDiv, DescDiv, InfoDiv, IconDiv, CategoryDiv, DescP, PopupDiv, CompleteDiv } from "../../styled/common/ScheduleList";
+import { motion, AnimatePresence } from "framer-motion";
+import { LoadingDiv, ScheduleLi, HeaderDiv, DescDiv, InfoDiv, IconDiv, CategoryDiv, DescP, PopupDiv, CompleteDiv, MotionUl } from "../../styled/common/ScheduleList";
 import AutoScrollSection from "./AutoScrollSection";
 import { holidayIcon, alertIcon, memoIcon, placeIcon } from "../../assets/icons/index";
 import Allday_toggle from "../../assets/css/Allday_toggle";
@@ -94,102 +95,106 @@ const ScheduleList = ({ selectedDate, scheduleList = [], loading }) => {
         return () => document.removeEventListener("mousedown", handleClick);
     }, []);
 
-    if (loading)
-        return (
-            <>
-                <LoadingDiv>loading...</LoadingDiv>
-            </>
-        );
-    else {
-        return (
-            <>
-                {filteredList.map((schedule) => (
-                    <ScheduleLi key={schedule.idx}>
-                        <HeaderDiv>
-                            {/* 일정 제목 */}
-                            {schedule.is_completed ? (
-                                <CompleteDiv onMouseEnter={(e) => handleImgHover(e, schedule)} onMouseLeave={handleImgHoverLeave}>
-                                    {schedule.title}
-                                </CompleteDiv>
-                            ) : (
-                                <div>{schedule.title}</div>
-                            )}
+    return (
+        <>
+            <AnimatePresence>
+                {loading ? (
+                    <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ minHeight: 120 }}>
+                        <LoadingDiv>loading...</LoadingDiv>
+                    </motion.div>
+                ) : (
+                    <MotionUl key="list" initial={{ opacity: 0, x: 0 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 0 }} transition={{ duration: 0.4 }}>
+                        <AnimatePresence mode="wait">
+                            {filteredList.map((schedule) => (
+                                <ScheduleLi key={schedule.idx} initial={{ opacity: 0, y: 0 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 0 }} transition={{ duration: 0.4 }}>
+                                    <HeaderDiv>
+                                        {/* 일정 제목 */}
+                                        {schedule.is_completed ? (
+                                            <CompleteDiv onMouseEnter={(e) => handleImgHover(e, schedule)} onMouseLeave={handleImgHoverLeave}>
+                                                {schedule.title}
+                                            </CompleteDiv>
+                                        ) : (
+                                            <div>{schedule.title}</div>
+                                        )}
 
-                            <time>
-                                {/* 일정 등록 일자 */}
-                                {schedule.reg_date.slice(0, 10)}
-                            </time>
-                        </HeaderDiv>
+                                        <time>
+                                            {/* 일정 등록 일자 */}
+                                            {schedule.reg_date.slice(0, 10)}
+                                        </time>
+                                    </HeaderDiv>
 
-                        <DescDiv>
-                            {/* 일정 내용 */}
-                            <AutoScrollSection>{schedule.desc}</AutoScrollSection>
+                                    <DescDiv>
+                                        {/* 일정 내용 */}
+                                        <AutoScrollSection>{schedule.desc}</AutoScrollSection>
 
-                            {/* 사용자 */}
-                            <DescP>{schedule.user_id}</DescP>
-                        </DescDiv>
+                                        {/* 사용자 */}
+                                        <DescP>{schedule.user_id}</DescP>
+                                    </DescDiv>
 
-                        <InfoDiv>
-                            <CategoryDiv>
-                                {/* 일정 카테고리 */}
-                                {/* <div>{schedule.category}</div> */}
+                                    <InfoDiv>
+                                        <CategoryDiv>
+                                            {/* 일정 카테고리 */}
+                                            {/* <div>{schedule.category}</div> */}
 
-                                {/* 하루 종일 일정 - 일정 내용과 일정 등록자 배경에 색 줄 그림 처리 */}
-                                {schedule.is_allday && <Allday_toggle />}
-                            </CategoryDiv>
+                                            {/* 하루 종일 일정 - 일정 내용과 일정 등록자 배경에 색 줄 그림 처리 */}
+                                            {schedule.is_allday && <Allday_toggle />}
+                                        </CategoryDiv>
 
-                            <IconDiv>
-                                {/* 장소 - 주소API로 지도 표시 */}
-                                {schedule.place !== "" && (
-                                    <div className={getIconClass(schedule, "place")}>
-                                        <img alt="place" src={placeIcon} onClick={(e) => handleImgClick(e, schedule, "place")} className="popup-trigger" />
-                                    </div>
-                                )}
+                                        <IconDiv>
+                                            {/* 장소 - 주소API로 지도 표시 */}
+                                            {schedule.place !== "" && (
+                                                <div className={getIconClass(schedule, "place")}>
+                                                    <img alt="place" src={placeIcon} onClick={(e) => handleImgClick(e, schedule, "place")} className="popup-trigger" />
+                                                </div>
+                                            )}
 
-                                {/* 메모 */}
-                                {schedule.memo !== "" && (
-                                    <div className={getIconClass(schedule, "memo")}>
-                                        <img alt="memo" src={memoIcon} onClick={(e) => handleImgClick(e, schedule, "memo")} className="popup-trigger" />
-                                    </div>
-                                )}
+                                            {/* 메모 */}
+                                            {schedule.memo !== "" && (
+                                                <div className={getIconClass(schedule, "memo")}>
+                                                    <img alt="memo" src={memoIcon} onClick={(e) => handleImgClick(e, schedule, "memo")} className="popup-trigger" />
+                                                </div>
+                                            )}
 
-                                {/* 알람 - 알람 입력되면 알람 시간도 함께 필수 입력 되도록 처리 필요 */}
-                                {schedule.is_alert && (
-                                    <div className={getIconClass(schedule, "alert")}>
-                                        <img alt="alert" src={alertIcon} onClick={(e) => handleImgClick(e, schedule, "alert")} className="popup-trigger" />
-                                    </div>
-                                )}
+                                            {/* 알람 - 알람 입력되면 알람 시간도 함께 필수 입력 되도록 처리 필요 */}
+                                            {schedule.is_alert && (
+                                                <div className={getIconClass(schedule, "alert")}>
+                                                    <img alt="alert" src={alertIcon} onClick={(e) => handleImgClick(e, schedule, "alert")} className="popup-trigger" />
+                                                </div>
+                                            )}
 
-                                {/* 휴일 */}
-                                {schedule.is_holiday && (
-                                    <div className={getIconClass(schedule, "holiday")}>
-                                        <img alt="holiday" src={holidayIcon} onClick={(e) => handleImgClick(e, schedule, "holiday")} className="popup-trigger" />
-                                    </div>
-                                )}
-                            </IconDiv>
-                        </InfoDiv>
-                    </ScheduleLi>
-                ))}
+                                            {/* 휴일 */}
+                                            {schedule.is_holiday && (
+                                                <div className={getIconClass(schedule, "holiday")}>
+                                                    <img alt="holiday" src={holidayIcon} onClick={(e) => handleImgClick(e, schedule, "holiday")} className="popup-trigger" />
+                                                </div>
+                                            )}
+                                        </IconDiv>
+                                    </InfoDiv>
+                                </ScheduleLi>
+                            ))}
+                        </AnimatePresence>
+                    </MotionUl>
+                )}
+            </AnimatePresence>
 
-                {/* 팝업 DIV */}
-                <PopupDiv ref={detailRef} $top={popup.y} $left={popup.x} $show={popup.visible} style={{ pointerEvents: popup.visible ? "auto" : "none" }}>
-                    {popup.data && (
-                        <>
-                            <strong>{popup.data.title}</strong>
-                            <div style={{ marginTop: 6 }}>{popup.data.value}</div>
-                            {popup.data.extra && (
-                                <div style={{ marginTop: 6 }}>
-                                    <a href={popup.data.extra} target="_blank" rel="noopener noreferrer">
-                                        지도보기
-                                    </a>
-                                </div>
-                            )}
-                        </>
-                    )}
-                </PopupDiv>
-            </>
-        );
-    }
+            {/* 팝업 DIV */}
+            <PopupDiv ref={detailRef} $top={popup.y} $left={popup.x} $show={popup.visible} style={{ pointerEvents: popup.visible ? "auto" : "none" }}>
+                {popup.data && (
+                    <>
+                        <strong>{popup.data.title}</strong>
+                        <div style={{ marginTop: 6 }}>{popup.data.value}</div>
+                        {popup.data.extra && (
+                            <div style={{ marginTop: 6 }}>
+                                <a href={popup.data.extra} target="_blank" rel="noopener noreferrer">
+                                    지도보기
+                                </a>
+                            </div>
+                        )}
+                    </>
+                )}
+            </PopupDiv>
+        </>
+    );
 };
 
 export default ScheduleList;

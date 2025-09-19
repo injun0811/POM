@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 export const LoadingDiv = styled.div`
     display: flex;
@@ -9,7 +10,7 @@ export const LoadingDiv = styled.div`
     color: #555;
 `;
 
-export const ScheduleLi = styled.li`
+export const ScheduleLi = styled(motion.li)`
     margin: 15px;
     width: 320px;
     height: 120px;
@@ -120,4 +121,8 @@ export const PopupDiv = styled.div`
 export const CompleteDiv = styled.div`
     text-decoration: line-through;
     color: white;
+`;
+
+export const MotionUl = styled(motion.ul)`
+    list-style: none;
 `;

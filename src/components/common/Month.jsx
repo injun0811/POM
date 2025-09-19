@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { WeekSection, MonthTitle, WeekRow, WeeksWrapper } from "../../styled/common/Month";
 import Day from "./Day";
 import { MONTH_COLOR, WEEKDAYS } from "../../utils/monthInfo";
@@ -50,7 +51,7 @@ const Month = ({ year, month, setSelectedMonth, selectedDate, setSelectedDate, i
     };
 
     return (
-        <div style={compactStyle}>
+        <motion.div style={compactStyle} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.05 }} transition={{ duration: 0.4 }}>
             <WeekSection $bgColor={bgColor}>
                 <MonthTitle>
                     {year}년 {month}월
@@ -84,7 +85,7 @@ const Month = ({ year, month, setSelectedMonth, selectedDate, setSelectedDate, i
                     })}
                 </WeeksWrapper>
             </WeekSection>
-        </div>
+        </motion.div>
     );
 };
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ScheduleDiv, ScrollWrapper, ScheduleListDiv, ScheduleAddDiv } from "../../styled/common/Year";
 import Month from "./Month";
 import ScheduleList from "./ScheduleList";
@@ -80,78 +81,105 @@ const Year = ({ year = 2025, scheduleList = [], loading }) => {
 
     return (
         <ScheduleDiv>
-            <ScrollWrapper
-                ref={scrollRef}
-                tabIndex={0}
-                onKeyDown={handleKeyDown}
-                onMouseUp={onMouseUp}
-                onMouseDown={onMouseDown}
-                onTouchStart={onTouchStart}
-                onTouchMove={onTouchMove}
-                $isCompact={!!selectedDate}
-                onTransitionEnd={handleTransitionEnd}
-                style={{ outline: "none" }}
-            >
-                {selectedDate ? (
-                    // 선택 모드: Month 한 개만 보여줌
-                    <Month
-                        year={year}
-                        month={selectedDate.month}
-                        selectMonth={selectedMonth}
-                        setSelectedMonth={setSelectedMonth}
-                        selectedDate={selectedDate}
-                        setSelectedDate={setSelectedDate}
-                        isSolo
-                        $isCompact
-                        scheduleList={scheduleList}
-                    />
-                ) : (
-                    Array.from({ length: 12 }, (_, i) => (
-                        <Month
-                            key={i}
-                            year={year}
-                            month={i + 1}
-                            selectMonth={selectedMonth}
-                            setSelectedMonth={setSelectedMonth}
-                            selectedDate={selectedDate}
-                            setSelectedDate={setSelectedDate}
-                            isSolo={!!selectedDate && selectedDate.month === i + 1}
+            <AnimatePresence mode="wait">
+                {/* 월 캐러셀 모드 */}
+                {!selectedDate ? (
+                    <motion.div
+                        key="carousel"
+                        layout
+                        initial={{ opacity: 0, x: 0 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 0 }}
+                        transition={{ duration: 0.4 }}
+                        style={{ display: "flex", width: "100%" }}
+                    >
+                        <ScrollWrapper
+                            ref={scrollRef}
+                            tabIndex={0}
+                            onKeyDown={handleKeyDown}
+                            onMouseUp={onMouseUp}
+                            onMouseDown={onMouseDown}
+                            onTouchStart={onTouchStart}
+                            onTouchMove={onTouchMove}
                             $isCompact={!!selectedDate}
-                            scheduleList={scheduleList}
-                        />
-                    ))
+                            onTransitionEnd={handleTransitionEnd}
+                            style={{ outline: "none" }}
+                        >
+                            {Array.from({ length: 12 }, (_, i) => (
+                                <Month
+                                    key={i}
+                                    year={year}
+                                    month={i + 1}
+                                    selectMonth={selectedMonth}
+                                    setSelectedMonth={setSelectedMonth}
+                                    selectedDate={selectedDate}
+                                    setSelectedDate={setSelectedDate}
+                                    isSolo={!!selectedDate && selectedDate.month === i + 1}
+                                    $isCompact={!!selectedDate}
+                                    scheduleList={scheduleList}
+                                />
+                            ))}
+                        </ScrollWrapper>
+                    </motion.div>
+                ) : (
+                    // compact 모드: 선택 월 fade, 일정 영역 등장
+                    <motion.div
+                        key="compact"
+                        layout
+                        initial={{ opacity: 0, scale: 0.95, x: 0 }}
+                        animate={{ opacity: 1, scale: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 0 }}
+                        transition={{ duration: 0.4 }}
+                        style={{ display: "flex", width: "100%", gap: 30 }}
+                    >
+                        <ScrollWrapper ref={scrollRef} tabIndex={0} $isCompact={true} style={{ outline: "none" }}>
+                            <Month
+                                year={year}
+                                month={selectedDate.month}
+                                selectMonth={selectedMonth}
+                                setSelectedMonth={setSelectedMonth}
+                                selectedDate={selectedDate}
+                                setSelectedDate={setSelectedDate}
+                                isSolo
+                                $isCompact
+                                scheduleList={scheduleList}
+                            />
+                        </ScrollWrapper>
+
+                        {/* 상세 일정 영역 등장 */}
+                        <motion.div
+                            initial={{ opacity: 0, width: 0 }}
+                            animate={{ opacity: 1, width: 375 }}
+                            exit={{ opacity: 0, width: 0 }}
+                            transition={{ duration: 0.4 }}
+                            style={{ overflow: "hidden", height: 390, display: "contents" }}
+                        >
+                            <ScheduleListDiv $isCompact={!!selectedDate}>
+                                {/* 일정 LIST DIV */}
+                                <ScheduleList selectedDate={selectedDate} scheduleList={scheduleList} loading={loading}></ScheduleList>
+                            </ScheduleListDiv>
+                            <ScheduleAddDiv $isCompact={!!selectedDate}>
+                                <h3>일정 등록</h3>
+                                {/* 시작 날짜 DIV */}
+
+                                {/* 종료 날짜 DIV */}
+
+                                {/* 하루 종일 일정 체크 DIV */}
+
+                                {/* 완료 일정 체크 DIV */}
+
+                                {/* 휴일 체크 DIV */}
+
+                                {/* 장소 DIV */}
+
+                                {/* 메모 DIV */}
+
+                                {/* 알람 DIV */}
+                            </ScheduleAddDiv>
+                        </motion.div>
+                    </motion.div>
                 )}
-            </ScrollWrapper>
-
-            {showSM && (
-                <>
-                    <ScheduleListDiv $isCompact={!!selectedDate}>
-                        {/* 일정 LIST DIV */}
-                        <ul>
-                            {/* li 를 이용한 일정 LIST */}
-                            <ScheduleList selectedDate={selectedDate} scheduleList={scheduleList} loading={loading}></ScheduleList>
-                        </ul>
-                    </ScheduleListDiv>
-                    <ScheduleAddDiv $isCompact={!!selectedDate}>
-                        <h3>일정 등록</h3>
-                        {/* 시작 날짜 DIV */}
-
-                        {/* 종료 날짜 DIV */}
-
-                        {/* 하루 종일 일정 체크 DIV */}
-
-                        {/* 완료 일정 체크 DIV */}
-
-                        {/* 휴일 체크 DIV */}
-
-                        {/* 장소 DIV */}
-
-                        {/* 메모 DIV */}
-
-                        {/* 알람 DIV */}
-                    </ScheduleAddDiv>
-                </>
-            )}
+            </AnimatePresence>
         </ScheduleDiv>
     );
 };
