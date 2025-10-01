@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Year from "../../components/common/Year";
+import ScheduleAdd from "../../components/common/ScheduleAdd";
 import supabase from "../../services/supabaseClient";
 
 const SM = () => {
@@ -25,6 +26,9 @@ const SM = () => {
             <h2>schedule management</h2>
             <div>
                 <Year year={2025} scheduleList={scheduleList} loading={loading} />
+            </div>
+            <div>
+                <ScheduleAdd />
             </div>
         </div>
     );
