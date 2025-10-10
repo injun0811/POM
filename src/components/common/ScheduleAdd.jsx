@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { RegistForm } from "../../styled/common/ScheduleAdd";
 import SelectBox from "../common/ui/SelectBox";
+import TextBox from "../common/ui/TextBox";
 import supabase from "../../services/supabaseClient";
 
 const ScheduleAdd = ({ open }) => {
@@ -27,6 +28,7 @@ const ScheduleAdd = ({ open }) => {
         <>
             <RegistForm $open={open}>
                 {/* title */}
+                <TextBox desc={"Title"} width={"200px"} />
 
                 {/* is_allday (true / false) */}
 
