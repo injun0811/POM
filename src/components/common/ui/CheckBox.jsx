@@ -1,5 +1,5 @@
 import React from "react";
-import { CheckBoxDiv } from "../../styled/common/CheckBox";
+import { CheckBoxDiv } from "../../../styled/common/ui/CheckBox";
 
 const CheckBox = ({ checked }) => {
     return (

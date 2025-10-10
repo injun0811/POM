@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { LoadingDiv, ScheduleLi, HeaderDiv, DescDiv, InfoDiv, IconDiv, CategoryDiv, DescP, PopupDiv, CompleteDiv, MotionUl } from "../../styled/common/ScheduleList";
 import AutoScrollSection from "./AutoScrollSection";
-import CheckBoxDiv from "./CheckBox";
+import CheckBoxDiv from "./ui/CheckBox";
 import { holidayIcon, alertIcon, memoIcon, placeIcon } from "../../assets/icons/index";
 import Allday_toggle from "../../assets/css/Allday_toggle";
 

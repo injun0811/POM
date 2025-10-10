@@ -159,26 +159,8 @@ const Year = ({ year = 2025, scheduleList = [], loading }) => {
                                 {/* 일정 LIST DIV */}
                                 <ScheduleList selectedDate={selectedDate} scheduleList={scheduleList} loading={loading}></ScheduleList>
                             </ScheduleListDiv>
-                            <ScheduleAddDiv $isCompact={!!selectedDate}>
-                                {/* 일정 등록 DIV */}
-                                <ScheduleAdd></ScheduleAdd>
-                                <h3>일정 등록</h3>
-                                {/* 시작 날짜 DIV */}
-
-                                {/* 종료 날짜 DIV */}
-
-                                {/* 하루 종일 일정 체크 DIV */}
-
-                                {/* 완료 일정 체크 DIV */}
-
-                                {/* 휴일 체크 DIV */}
-
-                                {/* 장소 DIV */}
-
-                                {/* 메모 DIV */}
-
-                                {/* 알람 DIV */}
-                            </ScheduleAddDiv>
+                            {/* <ScheduleAddDiv $isCompact={!!selectedDate}>
+                            </ScheduleAddDiv> */}
                         </motion.div>
                     </motion.div>
                 )}
