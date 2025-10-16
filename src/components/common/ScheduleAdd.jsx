@@ -6,6 +6,7 @@ import supabase from "../../services/supabaseClient";
 
 const ScheduleAdd = ({ open }) => {
     const [category, setCategory] = useState([]);
+    const [subDiv, setSubDiv] = useState(true);
 
     // 카테고리 리스트 가져오기
     useEffect(() => {
@@ -27,8 +28,14 @@ const ScheduleAdd = ({ open }) => {
     return (
         <>
             <RegistForm $open={open}>
-                {/* title */}
-                <TextBox desc={"Title"} width={"200px"} />
+                <div className="textTab">
+                    {/* title - textBox */}
+                    <TextBox desc={"Title"} width={"200px"} height={"60px"} subDiv={false} />
+
+                    {/* desc - textArea */}
+                    <TextBox desc={"Desc"} width={"200px"} height={"60px"} subDiv={true} setSubDiv={setSubDiv} popupWidth={"1170px"} popupHeight={"200px"} popupTop={"690px"} popupLeft={"370px"} />
+                    {/* <DetailDiv Name={Name}></DetailDiv> */}
+                </div>
 
                 {/* is_allday (true / false) */}
 
@@ -48,10 +55,6 @@ const ScheduleAdd = ({ open }) => {
 
                 {/* category */}
                 <SelectBox list={category} onChange={(selected) => console.log(selected)} />
-
-                {/* 컴포넌트화 DIV 하나로 보여주는 데이터 (hover, click) */}
-                {/* <DetailDiv Name={Name}> */}
-                {/* desc - textArea*/}
 
                 {/* place - 주소 입력 및 지도 API 연동 */}
 

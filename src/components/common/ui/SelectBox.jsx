@@ -1,8 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { SelectBoxDiv } from "../../../styled/common/ui/SelectBox";
 
-// SelectBox 컴포넌트
-// 바인딩 받아야 할 List 형태 [{idx:1, value:'', text:''}, {idx:2, value:'', text:''}...]
+// SelectBox 컴포넌트 (바인딩 변수)
+
+// idx : key 값
+// value : 선택 시 input에 들어가는 값
+// text : 리스트에 보여지는 값
+
+// 바인딩 예시
+// <SelectBox list={category}> [{idx:1, value:'', text:''}, {idx:2, value:'', text:''}...]
 
 const SelectBox = ({ list = [], onChange }) => {
     const [inputValue, setInputValue] = useState("");
@@ -43,7 +49,7 @@ const SelectBox = ({ list = [], onChange }) => {
     }, []);
 
     return (
-        <SelectBoxDiv ref={containerRef} style={{ position: "relative", width: "300px" }}>
+        <SelectBoxDiv ref={containerRef} style={{ position: "relative", width: "300px", height: "50px" }}>
             <input
                 className="chosenValue"
                 type="text"
