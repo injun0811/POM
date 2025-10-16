@@ -7,7 +7,7 @@ import cancel from "../../../assets/icons/cancel.png";
 // desc : 입력 내용
 // width : TextBox 너비
 // height : TextBox 높이
-// subDiv : TextArea 팝업 여부 (true / false)
+// subDiv : TextArea 팝업 여부 (true / false (단순 textBox))
 // setSubDiv : TextArea 팝업 상태 변경 함수
 // popupWidth : TextArea 팝업 너비
 // popupHeight : TextArea 팝업 높이

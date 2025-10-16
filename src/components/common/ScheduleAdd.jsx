@@ -34,11 +34,12 @@ const ScheduleAdd = ({ open }) => {
 
                     {/* desc - textArea */}
                     <TextBox desc={"Desc"} width={"200px"} height={"60px"} subDiv={true} setSubDiv={setSubDiv} popupWidth={"1170px"} popupHeight={"200px"} popupTop={"690px"} popupLeft={"370px"} />
-                    {/* <DetailDiv Name={Name}></DetailDiv> */}
+
+                    {/* memo - textArea */}
+                    <TextBox desc={"Memo"} width={"200px"} height={"60px"} subDiv={true} setSubDiv={setSubDiv} popupWidth={"1170px"} popupHeight={"200px"} popupTop={"690px"} popupLeft={"370px"} />
                 </div>
 
                 {/* is_allday (true / false) */}
-
                 {/* is_holiday (true / false) */}
 
                 {/* is_completed (true / false) */}
