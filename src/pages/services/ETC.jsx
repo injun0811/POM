@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import "react-datepicker/dist/react-datepicker.css";
 import { ETCDiv } from "../../styled/services/ETC";
 import IconButton from "../../components/common/ui/IconButton";
+import SideCheckBox from "../../components/common/ui/SideCheckBox";
 
 const ETC = () => {
     const [date, setDate] = useState(new Date());
@@ -27,6 +28,11 @@ const ETC = () => {
                     <h3>DatePicker 라이브러리</h3>
                     <DatePicker seleted={date} onChange={(d) => setDate(d)} dateFormat="yyyy-MM-dd" />
                     <p>선택한 날짜 : {dayjs(date).format("YYYY-MM-DD")}</p>
+                </div>
+
+                <div className="step">
+                    <h3>SideCheckBox</h3>
+                    <SideCheckBox color={"Green"} label={"테스트 라벨"} onChange={false} />
                 </div>
             </section>
         </ETCDiv>
