@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Year from "../../components/common/Year";
 import ScheduleAdd from "../../components/common/ScheduleAdd";
-import supabase from "../../services/supabaseClient";
+import supabase from "../../api/supabaseClient";
 import PagingButton from "../../components/common/ui/PagingButton";
 
 const SM = () => {

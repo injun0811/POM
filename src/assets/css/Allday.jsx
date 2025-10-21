@@ -14,7 +14,7 @@ const Allday = () => {
                     <div className="tree tree2">
                         <div className="branch branchTop"></div>
                         <div className="branch branchMiddle"></div>
-                        <div class="branch branchBottom"></div>
+                        <div className="branch branchBottom"></div>
                     </div>
 
                     <div className="tree tree3">
@@ -32,7 +32,7 @@ const Allday = () => {
                     <div className="tree tree5">
                         <div className="branch branchTop"></div>
                         <div className="branch branchMiddle"></div>
-                        <div class="branch branchBottom"></div>
+                        <div className="branch branchBottom"></div>
                     </div>
 
                     <div className="tree tree6">
@@ -44,7 +44,7 @@ const Allday = () => {
                     <div className="tree tree7">
                         <div className="branch branchTop"></div>
                         <div className="branch branchMiddle"></div>
-                        <div class="branch branchBottom"></div>
+                        <div className="branch branchBottom"></div>
                     </div>
                 </div>
 

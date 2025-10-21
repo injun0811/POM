@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { RegistForm } from "../../styled/common/ScheduleAdd";
 import SelectBox from "../common/ui/SelectBox";
 import TextBox from "../common/ui/TextBox";
-import supabase from "../../services/supabaseClient";
+import LocMapAPI from "../LocMapAPI";
+import supabase from "../../api/supabaseClient";
 
 const ScheduleAdd = ({ open }) => {
     const [category, setCategory] = useState([]);
@@ -32,14 +33,14 @@ const ScheduleAdd = ({ open }) => {
                     {/* title - textBox */}
                     <TextBox desc={"Title"} width={"200px"} height={"60px"} subDiv={false} />
 
-                    {/* desc - textArea */}
+                    {/* desc - textArea (open div) */}
                     <TextBox desc={"Desc"} width={"200px"} height={"60px"} subDiv={true} setSubDiv={setSubDiv} popupWidth={"1170px"} popupHeight={"200px"} popupTop={"690px"} popupLeft={"370px"} />
 
-                    {/* memo - textArea */}
+                    {/* memo - textArea (open div) */}
                     <TextBox desc={"Memo"} width={"200px"} height={"60px"} subDiv={true} setSubDiv={setSubDiv} popupWidth={"1170px"} popupHeight={"200px"} popupTop={"690px"} popupLeft={"370px"} />
 
-                    {/* place */}
-                    <TextBox desc={"place"} width={"400px"} height={"60px"} />
+                    {/* place - API (open div) */}
+                    <LocMapAPI />
                 </div>
 
                 {/* is_allday (true / false) */}

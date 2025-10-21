@@ -39,6 +39,7 @@ const TextBox = ({ desc, width, height, subDiv, setSubDiv, popupWidth, popupHeig
         }
     }, [isActive]);
 
+    // not open Div, just TextBox
     if (!subDiv) {
         return (
             <TextBoxDiv style={{ width: width, height: height }}>
@@ -49,6 +50,7 @@ const TextBox = ({ desc, width, height, subDiv, setSubDiv, popupWidth, popupHeig
             </TextBoxDiv>
         );
     }
+    // TextArea
     if (subDiv) {
         return (
             <>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import dayjs from "dayjs";
 import "react-datepicker/dist/react-datepicker.css";
-import { ETCDiv } from "../../styled/services/ETC";
+import { ETCDiv } from "../../styled/page/services/ETC";
 import IconButton from "../../components/common/ui/IconButton";
 import SideCheckBox from "../../components/common/ui/SideCheckBox";
 

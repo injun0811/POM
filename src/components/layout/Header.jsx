@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { HeaderDiv, SubMenuDiv } from "../../styled/layout/Header";
 import SVG from "../SVG";
-import Button from "../../components/common/MechanicalButton";
+import Button from "../../components/common/ui/MechanicalButton";
 
 const Header = () => {
     const [isHovered, setIsHovered] = useState(false);
