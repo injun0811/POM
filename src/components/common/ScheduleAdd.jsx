@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { RegistForm } from "../../styled/common/ScheduleAdd";
 import SelectBox from "../common/ui/SelectBox";
 import TextBox from "../common/ui/TextBox";
@@ -8,6 +8,18 @@ import supabase from "../../api/supabaseClient";
 const ScheduleAdd = ({ open }) => {
     const [category, setCategory] = useState([]);
     const [subDiv, setSubDiv] = useState(true);
+    const [addressData, setAddressData] = useState({
+        postcode: "",
+        address: "",
+        detailAddress: "",
+        extraAddress: "",
+    });
+    // Address
+    const fullAddress = `${addressData.postcode} ${addressData.address} ${addressData.detailAddress} ${addressData.extraAddress}`.trim();
+
+    const handleAddressChange = useCallback((newData) => {
+        setAddressData(newData);
+    }, []);
 
     // 카테고리 리스트 가져오기
     useEffect(() => {
@@ -40,7 +52,7 @@ const ScheduleAdd = ({ open }) => {
                     <TextBox desc={"Memo"} width={"200px"} height={"60px"} subDiv={true} setSubDiv={setSubDiv} popupWidth={"1170px"} popupHeight={"200px"} popupTop={"690px"} popupLeft={"370px"} />
 
                     {/* place - API (open div) */}
-                    <LocMapAPI />
+                    <LocMapAPI onAddressUpdate={handleAddressChange} AddressText={fullAddress} />
                 </div>
 
                 {/* is_allday (true / false) */}

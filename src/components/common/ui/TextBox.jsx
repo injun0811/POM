@@ -19,8 +19,10 @@ import cancel from "../../../assets/icons/cancel.png";
 
 const TextBox = ({ desc, width, height, subDiv, setSubDiv, popupWidth, popupHeight, popupTop, popupLeft }) => {
     const [isActive, setIsActive] = useState(false);
+    const [textValue, setTextValue] = useState("");
     const textAreaRef = useRef(null);
     const textAreaDivRef = useRef(null);
+    const labelRef = useRef(null);
 
     useEffect(() => {
         if (!isActive) return;
@@ -39,13 +41,25 @@ const TextBox = ({ desc, width, height, subDiv, setSubDiv, popupWidth, popupHeig
         }
     }, [isActive]);
 
+    useEffect(() => {
+        if (labelRef.current) {
+            if (textValue && textValue.trim() !== "") {
+                labelRef.current.classList.add("active");
+            } else {
+                labelRef.current.classList.remove("active");
+            }
+        }
+    }, [textValue]);
+
     // not open Div, just TextBox
     if (!subDiv) {
         return (
             <TextBoxDiv style={{ width: width, height: height }}>
                 <div className="input">
-                    <input type="text" required autoComplete="off" />
-                    <label htmlFor="name">{desc}</label>
+                    <input type="text" required autoComplete="off" value={textValue} onChange={(e) => setTextValue(e.target.value)} />
+                    <label ref={labelRef} htmlFor="name">
+                        {desc}
+                    </label>
                 </div>
             </TextBoxDiv>
         );
@@ -56,8 +70,10 @@ const TextBox = ({ desc, width, height, subDiv, setSubDiv, popupWidth, popupHeig
             <>
                 <TextBoxDiv style={{ width: width, height: height }}>
                     <div className="input" onClick={() => !isActive && setIsActive(true)}>
-                        <input type="text" readOnly style={{ cursor: "pointer" }} onClick={() => setIsActive(true)} />
-                        <label htmlFor="name">{desc}</label>
+                        <input type="text" readOnly style={{ cursor: "pointer" }} onClick={() => setIsActive(true)} value={textValue} />
+                        <label ref={labelRef} htmlFor="name">
+                            {desc}
+                        </label>
                     </div>
                 </TextBoxDiv>
                 <TextAreaDiv $active={isActive} ref={textAreaDivRef} $popupWidth={popupWidth} $popupHeight={popupHeight} $popupTop={popupTop} $popupLeft={popupLeft}>
@@ -74,7 +90,7 @@ const TextBox = ({ desc, width, height, subDiv, setSubDiv, popupWidth, popupHeig
                                 <img src={cancel} alt="cancel" />
                             </button>
                         </div>
-                        <textarea ref={textAreaRef} />
+                        <textarea ref={textAreaRef} value={textValue} onChange={(e) => setTextValue(e.target.value)} />
                     </div>
                 </TextAreaDiv>
             </>

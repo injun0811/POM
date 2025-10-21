@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 export const TextBoxDiv = styled.div`
     align-content: center;
-    width: 200px;
+    width: 500px;
     height: 60px;
 
     .input {
@@ -30,7 +30,8 @@ export const TextBoxDiv = styled.div`
         }
 
         input:focus ~ label,
-        input:valid ~ label {
+        input:valid ~ label,
+        label.active {
             transform: translateY(-50%) scale(0.9);
             margin: 0em;
             margin-left: 1.3em;
@@ -40,6 +41,7 @@ export const TextBoxDiv = styled.div`
 
         input:focus,
         input:valid {
+        label.active {
             border-color: rgb(37, 37, 211);
         }
     }

@@ -3,12 +3,26 @@ import MiniTextBox from "../components/common/ui/MiniTextBox";
 import FormButton from "../components/common/ui/FormButton";
 import { LocationAPIDiv } from "../styled/api/LocaitionAPI";
 
-const LocationAPI = () => {
+const LocationAPI = ({ onAddressChange, setIsActive, setSubDiv }) => {
     const layerRef = useRef(null);
     const [postcode, setPostcode] = useState("");
     const [address, setAddress] = useState("");
     const [detailAddress, setDetailAddress] = useState("");
     const [extraAddress, setExtraAddress] = useState("");
+
+    // 상위 전달 함수 (변경 시 자동 호출)
+    useEffect(() => {
+        onAddressChange({
+            postcode,
+            address,
+            detailAddress,
+            extraAddress,
+        });
+    }, [postcode, address, detailAddress, extraAddress, onAddressChange]);
+
+    const closeDaumPostcode = () => {
+        if (layerRef.current) layerRef.current.style.display = "none";
+    };
 
     // 다음 주소 API 스크립트 로드
     useEffect(() => {
@@ -17,10 +31,6 @@ const LocationAPI = () => {
         document.body.appendChild(script);
         return () => document.body.removeChild(script);
     }, []);
-
-    const closeDaumPostcode = () => {
-        if (layerRef.current) layerRef.current.style.display = "none";
-    };
 
     const execDaumPostcode = () => {
         const elementLayer = layerRef.current;
@@ -86,11 +96,20 @@ const LocationAPI = () => {
             <div className="flex">
                 <div className="spaceEvenly left">
                     <MiniTextBox width={"140px"} placeholder={"우편번호"} value={postcode} readOnly />
-                    <MiniTextBox width={"300px"} placeholder={"상세주소"} onChange={(e) => setDetailAddress(e.target.value)} />
+                    <MiniTextBox width={"300px"} placeholder={"상세주소"} value={detailAddress} onChange={(e) => setDetailAddress(e.target.value)} />
                 </div>
                 <div className="spaceEvenly right">
                     <FormButton onClick={execDaumPostcode} text={"우편번호 찾기"} width={"150px"} height={"50px"} fontSize={"19px"} />
-                    <FormButton text={"입력"} width={"150px"} height={"50px"} fontSize={"19px"} />
+                    <FormButton
+                        onClick={() => {
+                            setIsActive(false);
+                            if (setSubDiv) setSubDiv(false);
+                        }}
+                        text={"입력"}
+                        width={"150px"}
+                        height={"50px"}
+                        fontSize={"19px"}
+                    />
                 </div>
             </div>
 
