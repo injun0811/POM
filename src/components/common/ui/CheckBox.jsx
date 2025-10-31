@@ -1,6 +1,10 @@
 import React from "react";
 import { CheckBoxDiv } from "../../../styled/common/ui/CheckBox";
 
+// Button 컴포넌트 (바인딩 변수)
+
+// checked : 체크여부
+
 const CheckBox = ({ checked }) => {
     return (
         <CheckBoxDiv>

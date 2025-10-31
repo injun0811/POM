@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ScheduleDiv, ScrollWrapper, ScheduleListDiv, ScheduleAddDiv } from "../../styled/common/Year";
+import { ScheduleDiv, ScrollWrapper, ScheduleListDiv } from "../../styled/common/Year";
 import Month from "./Month";
 import ScheduleList from "./ScheduleList";
-import ScheduleAdd from "./ScheduleAdd";
 
 const Year = ({ year = 2025, scheduleList = [], loading }) => {
     const scrollRef = useRef(null);
@@ -159,8 +158,6 @@ const Year = ({ year = 2025, scheduleList = [], loading }) => {
                                 {/* 일정 LIST DIV */}
                                 <ScheduleList selectedDate={selectedDate} scheduleList={scheduleList} loading={loading}></ScheduleList>
                             </ScheduleListDiv>
-                            {/* <ScheduleAddDiv $isCompact={!!selectedDate}>
-                            </ScheduleAddDiv> */}
                         </motion.div>
                     </motion.div>
                 )}

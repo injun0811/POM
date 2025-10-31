@@ -6,6 +6,12 @@ import CheckBoxDiv from "./ui/CheckBox";
 import { holidayIcon, alertIcon, memoIcon, placeIcon } from "../../assets/icons/index";
 import Allday_toggle from "../../assets/css/Allday_toggle";
 
+// 일정 목록 컴포넌트
+
+// selectDate : 선택된 날짜 { year, month, day }
+// scheduleList : 일정 데이터 배열
+// loading : 로딩 상태
+
 const ScheduleList = ({ selectedDate, scheduleList = [], loading }) => {
     const [popup, setPopup] = useState({ visible: false, x: 0, y: 0, data: null });
     const detailRef = useRef();

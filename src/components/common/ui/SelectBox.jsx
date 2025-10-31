@@ -3,12 +3,14 @@ import { SelectBoxDiv } from "../../../styled/common/ui/SelectBox";
 
 // SelectBox 컴포넌트 (바인딩 변수)
 
-// idx : key 값
-// value : 선택 시 input에 들어가는 값
-// text : 리스트에 보여지는 값
+// list : 선택 배열 리스트
+// onChange : 선택 시 호출될 함수
 
 // 바인딩 예시
 // <SelectBox list={category}> [{idx:1, value:'', text:''}, {idx:2, value:'', text:''}...]
+// idx : key 값
+// value : 선택 시 input에 들어가는 값
+// text : 리스트에 보여지는 값
 
 const SelectBox = ({ list = [], onChange }) => {
     const [inputValue, setInputValue] = useState("");

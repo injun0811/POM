@@ -9,21 +9,18 @@
         <title>Personal Office Manager</title>
         <!-- TODO: 일정 구현 -->
         <!--
-        2025-10-20 월
+        2025-10-31 금
         * 일정 구현
 
             1. 디자인
-                1) 주소는 따로 DIV 생성 (textBox와 같은 외형에 클릭하면 DIV 활성화 처리)
-                    (1) 똑같이 하단 div 활성화 해서 주소 입력
-                    (2) 가운데 오른쪽에 지도 div 생성 처리
+                0) 컴포넌트화 된 ui 태그 주석 작업 필요
+                1) 입력되었지만 텍스트가 더 길면 '...' 처리
+                2) 지도 API 연동
 
-                2) 지도 및 주소 API DIV
-                    (4) 검색 버튼 추가
-                
-                3) API 처리
-                    (1) 주소 입력 후 Enter 및 검색 버튼 누르면 API jsx로 바인딩 구현
-                    (2) 바인딩 데이터로 주소 조회 처리 구현
-                    (3) 검색 결과 주소 입력 받으면 다시 div로 전달 처리
+                3) 입력 폼 - 체크 플래그 : is_allday (하루종일 여부), is_hoilday (휴무일 여부), is_completed (완료 여부)
+                4) 입력 폼 - 날짜 설정 : complted_data (완료 날짜), alert_date (알람 날짜), start_date (시작 날짜), end_date (종료 날짜), category (알람 카테고리)
+                5) 자동입력 처리 : user_id (로그인 처리 이후), reg_date (생성 날짜), update_date (수정 날짜)
+                6) 초기화 버튼 필요
         -->
     </head>
     <body>

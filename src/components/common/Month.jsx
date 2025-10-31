@@ -4,6 +4,17 @@ import { WeekSection, MonthTitle, WeekRow, WeeksWrapper } from "../../styled/com
 import Day from "./Day";
 import { MONTH_COLOR, WEEKDAYS } from "../../utils/monthInfo";
 
+// Month 컴포넌트 (바인딩 변수)
+
+// year : 연도
+// month : 월
+// setSelectedMonth : 선택된 월 설정 함수
+// selectedDate : 선택된 날짜 객체 { year, month, day }
+// setSelectedDate : 선택된 날짜 설정 함수
+// isSolo : 단독 모드 여부 (단독 모드일 때만 표시)
+// $isCompact : compact 모드 여부 (compact 모드일 때 축소 표시)
+// scheduleList : 일정 목록 배열
+
 const Month = ({ year, month, setSelectedMonth, selectedDate, setSelectedDate, isSolo, $isCompact, scheduleList = [] }) => {
     const bgColor = MONTH_COLOR[month - 1];
 

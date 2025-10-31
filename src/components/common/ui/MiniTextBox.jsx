@@ -8,6 +8,7 @@ import { MiniTextBoxDiv } from "../../../styled/common/ui/MiniTextBox";
 // placeholder : 미 입력 시, 설명내용
 // value : 상위 컴포넌트에 전달할 값 (주소 데이터)
 // readOnly : 읽기전용 여부
+// onChange : 값 변경 시, 상위 컴포넌트에 전달할 함수
 
 const MiniTextBox = ({ width, placeholder, value, readOnly, onChange }) => {
     return (

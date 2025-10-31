@@ -5,6 +5,10 @@ import TextBox from "../common/ui/TextBox";
 import LocMapAPI from "../LocMapAPI";
 import supabase from "../../api/supabaseClient";
 
+// ScheduleAdd 컴포넌트 (바인딩 변수)
+
+// open : 등록 폼 열기 여부
+
 const ScheduleAdd = ({ open }) => {
     const [category, setCategory] = useState([]);
     const [subDiv, setSubDiv] = useState(true);

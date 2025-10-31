@@ -1,5 +1,10 @@
 import React, { useEffect, useRef } from "react";
 
+// 자동 스크롤 섹션 컴포넌트 (바인딩 변수)
+
+// children : 섹션 내부에 들어갈 자식 요소
+// className : 스타일링 클래스명
+
 const AutoScrollSection = ({ children, className }) => {
     const sectionRef = useRef();
 

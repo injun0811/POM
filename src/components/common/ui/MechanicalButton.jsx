@@ -2,14 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-/*
-버튼 컴포넌트
-    props : 버튼 내용, 이동 경로, 가로길이(px), 세로딜길이(px)
-*/
+// Button 컴포넌트 (바인딩 변수)
 
-const Button = ({ desc, url, $hight, $width }) => {
+// desc : 버튼 내용
+// url : 이동 경로
+// $height : 세로길이 (px)
+// $width : 가로길이 (px)
+
+const Button = ({ desc, url, $height, $width }) => {
     return (
-        <StyledWrapper $hight={$hight} $width={$width}>
+        <StyledWrapper $height={$height} $width={$width}>
             <button className="button">
                 <span className="button-content">
                     <Link to={url}>{desc}</Link>
@@ -23,7 +25,7 @@ const StyledWrapper = styled.div`
     .button {
         position: relative;
         overflow: hidden;
-        height: ${(props) => `${props.$hight}px`};
+        height: ${(props) => `${props.$height}px`};
         padding: 0 ${(props) => `${props.$width}px`};
         border-radius: 24px;
         background: #3d3a4e;
