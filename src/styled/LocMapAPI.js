@@ -16,6 +16,9 @@ export const TextBoxDiv = styled.div`
             background-color: transparent;
             border-radius: 20px;
             width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         label {
