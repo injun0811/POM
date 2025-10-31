@@ -9,6 +9,7 @@ const LocationAPI = ({ onAddressChange, setIsActive, setSubDiv }) => {
     const [address, setAddress] = useState("");
     const [detailAddress, setDetailAddress] = useState("");
     const [extraAddress, setExtraAddress] = useState("");
+    const [showMap, setShowMap] = useState(false);
 
     // 상위 전달 함수 (변경 시 자동 호출)
     useEffect(() => {
@@ -24,14 +25,18 @@ const LocationAPI = ({ onAddressChange, setIsActive, setSubDiv }) => {
         if (layerRef.current) layerRef.current.style.display = "none";
     };
 
-    // 다음 주소 API 스크립트 로드
     useEffect(() => {
-        const script = document.createElement("script");
-        script.src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
-        document.body.appendChild(script);
-        return () => document.body.removeChild(script);
+        // 다음 주소 API 스크립트 로드
+        const addressScript = document.createElement("script");
+        addressScript.src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+        document.body.appendChild(addressScript);
+
+        return () => {
+            document.body.removeChild(addressScript);
+        };
     }, []);
 
+    // 다음 주소 API 실행
     const execDaumPostcode = () => {
         const elementLayer = layerRef.current;
         if (!elementLayer || !window.daum?.Postcode) return;
@@ -75,6 +80,7 @@ const LocationAPI = ({ onAddressChange, setIsActive, setSubDiv }) => {
         initLayerPosition(elementLayer);
     };
 
+    // 다음 주소 API 레이어 위치 초기화
     const initLayerPosition = (element) => {
         const width = 315;
         const height = 427;
@@ -85,6 +91,56 @@ const LocationAPI = ({ onAddressChange, setIsActive, setSubDiv }) => {
         element.style.width = width + "px";
         element.style.height = height + "px";
         element.style.border = borderWidth + "px solid";
+    };
+
+    // 지도 API 실행
+    const execMapAPI = () => {
+        // 도로명번호 및 주소 입력 확인
+        if (!postcode || !address) {
+            // 추 후에 alert 대신 모달로 변경 예정
+            alert("주소를 먼저 입력해주세요.");
+            return;
+        }
+        // Kakao API 로드 여부 및 객체 정의 여부 확인
+        if (!window.kakao || !window.kakao.maps) {
+            alert("지도 API 준비 중입니다. 새로고침 후 다시 시도해주세요.");
+            return;
+        }
+
+        // 주소 문자열 조합
+        const fullAddress = `${address}`;
+
+        setShowMap((prev) => !prev);
+
+        // 즉시 지도 생성
+        const container = document.getElementById("map");
+        const options = {
+            center: new window.kakao.maps.LatLng(33.450701, 126.570667),
+            level: 3,
+        };
+        const map = new window.kakao.maps.Map(container, options);
+
+        // Geocoder 객체 생성
+        const geocoder = new window.kakao.maps.services.Geocoder();
+
+        // 주소 지오코딩
+        geocoder.addressSearch(fullAddress, (result, status) => {
+            if (status === window.kakao.maps.services.Status.OK) {
+                // 위도 : result[0].y, 경도 : result[0].x
+                const coords = new window.kakao.maps.LatLng(result[0].y, result[0].x);
+
+                // 마커 추가
+                const marker = new window.kakao.maps.Marker({
+                    map: map,
+                    position: coords,
+                });
+
+                // 중심좌표를 해당 좌표로 이동
+                map.setCenter(coords);
+            } else {
+                alert("주소 좌표 검색에 실패했습니다.");
+            }
+        });
     };
 
     return (
@@ -100,6 +156,7 @@ const LocationAPI = ({ onAddressChange, setIsActive, setSubDiv }) => {
                 </div>
                 <div className="spaceEvenly right">
                     <FormButton onClick={execDaumPostcode} text={"우편번호 찾기"} width={"150px"} height={"50px"} fontSize={"19px"} />
+                    <FormButton onClick={execMapAPI} text={"지도로 보기"} width={"150px"} height={"50px"} fontSize={"19px"} />
                     <FormButton
                         onClick={() => {
                             setIsActive(false);
@@ -113,6 +170,7 @@ const LocationAPI = ({ onAddressChange, setIsActive, setSubDiv }) => {
                 </div>
             </div>
 
+            {/* 주소 API div */}
             <div
                 ref={layerRef}
                 style={{
@@ -136,6 +194,11 @@ const LocationAPI = ({ onAddressChange, setIsActive, setSubDiv }) => {
                         zIndex: 1,
                     }}
                 />
+            </div>
+
+            {/* 지도 API div */}
+            <div className={`mapAPI ${showMap ? "active" : ""}`}>
+                <div id="map" style={{ width: "100%", height: "100%" }} />
             </div>
         </LocationAPIDiv>
     );
