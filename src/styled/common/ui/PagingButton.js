@@ -1,10 +1,7 @@
 import styled from "styled-components";
 
 export const PagingButtonBtn = styled.button`
-    right: 21%;
-    top: 21%;
     cursor: pointer;
-    position: absolute;
     padding: 10px 24px;
     font-size: 18px;
     color: rgba(240, 159, 92, 1);

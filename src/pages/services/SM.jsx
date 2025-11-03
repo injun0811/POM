@@ -3,6 +3,7 @@ import Year from "../../components/common/Year";
 import ScheduleAdd from "../../components/common/ScheduleAdd";
 import supabase from "../../api/supabaseClient";
 import PagingButton from "../../components/common/ui/PagingButton";
+import { SMDiv } from "../../styled/page/services/SM";
 
 const SM = () => {
     const [scheduleList, setScheduleList] = useState([]);
@@ -22,18 +23,29 @@ const SM = () => {
         fetchScheduleList();
     }, []);
 
+    // 일정 등록 버튼 함수
+    const scheduleAddFunc = () => {};
+
+    // 초기화 버튼 함수
+    const reset = () => {};
+
     return (
-        <>
+        <SMDiv>
             <div>
                 <h1>일정 관리</h1>
                 <h2>schedule management</h2>
-                <PagingButton name={showAdd ? "등록 취소" : "일정 등록"} onClick={() => setShowAdd((v) => !v)} />
+
+                <div className="btnFlex">
+                    {showAdd ? <PagingButton name={"일정 등록"} onclick={() => scheduleAddFunc()} /> : null}
+                    {showAdd ? <PagingButton name={"초기화"} onclick={() => reset()} /> : null}
+                    <PagingButton name={showAdd ? "등록 취소" : "일정 등록"} onClick={() => setShowAdd((v) => !v)} />
+                </div>
                 <div>
                     <Year year={2025} scheduleList={scheduleList} loading={loading} />
                 </div>
             </div>
             {<ScheduleAdd open={showAdd} />}
-        </>
+        </SMDiv>
     );
 };
 
