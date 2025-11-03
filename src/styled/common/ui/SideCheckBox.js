@@ -28,8 +28,8 @@ export const SideCheckBoxDiv = styled.div`
         -webkit-tap-highlight-color: transparent;
 
         span {
-            margin-left: 10px;
-            font-size: 17px;
+            margin-left: 5px;
+            font-size: 16px;
             font-weight: 600;
         }
     }

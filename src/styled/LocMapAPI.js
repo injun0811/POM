@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 export const TextBoxDiv = styled.div`
     align-content: center;
-    width: 500px;
+    width: 350px;
     height: 60px;
 
     .input {

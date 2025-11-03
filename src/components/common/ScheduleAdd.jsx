@@ -21,10 +21,20 @@ const ScheduleAdd = ({ open }) => {
         detailAddress: "",
         extraAddress: "",
     });
+    // 완료 체크 상태값
     const [isCompleted, setIsCompleted] = useState(false);
     const [completedDate, setCompletedDate] = useState(null);
+    // 알람 체크 상태값
     const [isAlerted, setIsAlerted] = useState(false);
     const [alertDate, setAlertDate] = useState(null);
+    // // 시작 체크 상태값
+    // const [isStarted, setIsStarted] = useState(false);
+    const [startDate, setStartDate] = useState(null);
+    // // 종료 체크 상태값
+    // const [isEnded, setIsEnded] = useState(false);
+    const [endDate, setEndDate] = useState(null);
+    // 하루 종일 상태 값
+    const [isAllday, setIsAllday] = useState(false);
     // Address
     const fullAddress = `${addressData.postcode} ${addressData.address} ${addressData.detailAddress} ${addressData.extraAddress}`.trim();
 
@@ -64,11 +74,53 @@ const ScheduleAdd = ({ open }) => {
 
                     {/* place - API (open div) */}
                     <LocMapAPI onAddressUpdate={handleAddressChange} AddressText={fullAddress} />
+
+                    {/* category */}
+                    <SelectBox list={category} onChange={(selected) => console.log(selected)} />
                 </div>
 
                 <div className="textTab">
                     {/* is_allday (true / false) */}
-                    <SideCheckBox color={"Blue"} label={"하루종일"} width={"130px"} onChange={false} />
+                    <SideCheckBox
+                        color={"Blue"}
+                        label={"하루종일"}
+                        width={"130px"}
+                        onChange={(checked) => {
+                            if (checked) setStartDate(null);
+                            if (checked) setEndDate(null);
+                            setIsAllday(checked);
+                        }}
+                    />
+
+                    {/* start_date */}
+                    <div>
+                        <DatePicker
+                            className="date"
+                            selected={startDate}
+                            onChange={(d) => setStartDate(d)}
+                            showTimeSelect
+                            dateFormat="yyyy-MM-dd HH:mm"
+                            timeFormat="HH:mm"
+                            disabled={isAllday}
+                            placeholderText="시작 날짜"
+                        />
+                        <input type="hidden" name="startDate" id="startDate" value={dayjs(startDate).format("YYYY-MM-DD HH:mm")} readOnly />
+                    </div>
+
+                    {/* end_date */}
+                    <div>
+                        <DatePicker
+                            className="date"
+                            selected={endDate}
+                            onChange={(d) => setEndDate(d)}
+                            showTimeSelect
+                            dateFormat="yyyy-MM-dd HH:mm"
+                            timeFormat="HH:mm"
+                            disabled={isAllday}
+                            placeholderText="종료 날짜"
+                        />
+                        <input type="hidden" name="endDate" id="endDate" value={dayjs(endDate).format("YYYY-MM-DD HH:mm")} readOnly />
+                    </div>
 
                     {/* is_holiday (true / false) */}
                     <SideCheckBox color={"Pink"} label={"휴일"} width={"90px"} onChange={false} />
@@ -125,18 +177,7 @@ const ScheduleAdd = ({ open }) => {
                         />
                         <input type="hidden" name="alertDate" id="alertDate" value={dayjs(alertDate).format("YYYY-MM-DD HH:mm")} readOnly />
                     </div>
-
-                    {/* category */}
-                    <SelectBox list={category} onChange={(selected) => console.log(selected)} />
                 </div>
-
-                {/* start_date */}
-
-                {/* end_date */}
-
-                {/* reg_date */}
-
-                {/* update_date */}
             </RegistForm>
         </>
     );
