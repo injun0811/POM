@@ -29,8 +29,8 @@ const ETC = () => {
 
                 <div className="step">
                     <h3>DatePicker 라이브러리</h3>
-                    <DatePicker seleted={date} onChange={(d) => setDate(d)} dateFormat="yyyy-MM-dd" />
-                    <p>선택한 날짜 : {dayjs(date).format("YYYY-MM-DD")}</p>
+                    <DatePicker selected={date} onChange={(d) => setDate(d)} showTimeSelect dateFormat="yyyy-MM-dd HH:mm" timeFormat="HH:mm" />
+                    <p>선택한 날짜 : {dayjs(date).format("YYYY-MM-DD HH:mm")}</p>
                 </div>
 
                 <div className="step">
