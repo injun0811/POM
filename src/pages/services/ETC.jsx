@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { use, useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import dayjs from "dayjs";
 import "react-datepicker/dist/react-datepicker.css";
 import { ETCDiv } from "../../styled/page/services/ETC";
 import IconButton from "../../components/common/ui/IconButton";
 import SideCheckBox from "../../components/common/ui/SideCheckBox";
+import AlertModal from "../../components/common/ui/AlertModal";
 
 const ETC = () => {
     const [date, setDate] = useState(new Date());
+    const [alertOpen, setAlertOpen] = useState(false); // AlertModal
+
     return (
         <ETCDiv>
             <h1>소규모 기능</h1>
@@ -33,6 +36,13 @@ const ETC = () => {
                 <div className="step">
                     <h3>SideCheckBox</h3>
                     <SideCheckBox color={"Green"} label={"테스트 라벨"} onChange={false} />
+                </div>
+                <div className="step">
+                    <h3>AlertModal</h3>
+                    <button className="alert-btn" onClick={() => setAlertOpen(true)}>
+                        Cancel - Alert Modal
+                    </button>
+                    <AlertModal func={"Cancel"} desc={"작업을 취소하시겠습니까?"} open={alertOpen} onClose={() => setAlertOpen(false)} />
                 </div>
             </section>
         </ETCDiv>

@@ -8,7 +8,7 @@ import { iconList } from "../../../utils/IconSvg";
 
 // IconSvg.jsx 의 List 내용
 // 1. func : 구분
-// 2. colro1 : 왼쪽 색상
+// 2. color1 : 왼쪽 색상
 // 3. color2 : 오른쪽 색상
 // 4. icon : 표시될 svg
 

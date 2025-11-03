@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import MiniTextBox from "../components/common/ui/MiniTextBox";
 import FormButton from "../components/common/ui/FormButton";
 import { LocationAPIDiv } from "../styled/api/LocaitionAPI";
+import AlertModal from "../components/common/ui/AlertModal";
 
 const LocationAPI = ({ onAddressChange, setIsActive, setSubDiv }) => {
     const layerRef = useRef(null);
@@ -10,6 +11,7 @@ const LocationAPI = ({ onAddressChange, setIsActive, setSubDiv }) => {
     const [detailAddress, setDetailAddress] = useState("");
     const [extraAddress, setExtraAddress] = useState("");
     const [showMap, setShowMap] = useState(false);
+    const [alertOpen, setAlertOpen] = useState(false); // AlertModal
 
     // 상위 전달 함수 (변경 시 자동 호출)
     useEffect(() => {
@@ -98,7 +100,8 @@ const LocationAPI = ({ onAddressChange, setIsActive, setSubDiv }) => {
         // 도로명번호 및 주소 입력 확인
         if (!postcode || !address) {
             // 추 후에 alert 대신 모달로 변경 예정
-            alert("주소를 먼저 입력해주세요.");
+            setAlertOpen(true);
+            //alert("주소를 먼저 입력해주세요.");
             return;
         }
         // Kakao API 로드 여부 및 객체 정의 여부 확인
@@ -200,6 +203,9 @@ const LocationAPI = ({ onAddressChange, setIsActive, setSubDiv }) => {
             <div className={`mapAPI ${showMap ? "active" : ""}`}>
                 <div id="map" style={{ width: "100%", height: "100%" }} />
             </div>
+
+            {/* 모달창 */}
+            <AlertModal func={"Cancel"} desc={"주소를 먼저 검색해야 합니다."} open={alertOpen} onClose={() => setAlertOpen(false)} />
         </LocationAPIDiv>
     );
 };
