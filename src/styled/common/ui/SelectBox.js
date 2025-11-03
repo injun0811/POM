@@ -1,10 +1,26 @@
 import styled from "styled-components";
 
 export const SelectBoxDiv = styled.div`
+    position: relative;
+    width: 120px;
+    height: 50px;
+    margin: 5px;
+    padding: 10px;
+
     * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+    }
+
+    ul {
+        position: absolute;
+        background: #fff;
+        border: 1px solid #ddd;
+        width: 100%;
+        z-index: 2;
+        margin: 0;
+        padding: 0;
     }
 
     body {
@@ -42,10 +58,10 @@ export const SelectBoxDiv = styled.div`
         font-family: "Ek Mukta";
         text-transform: uppercase;
         font-weight: 600;
-        letter-spacing: 4px;
+        letter-spacing: 1px;
         height: 50px;
         font-size: 18px;
-        padding: 16px;
+        padding: 5px;
         background-color: #fafcfd;
         border: 3px solid transparent;
         transition: 0.3s ease-in-out;
@@ -100,10 +116,13 @@ export const SelectBoxDiv = styled.div`
         }
 
         li {
+            list-style: none;
+            padding: 5px 10px;
+
             position: relative;
             height: 50px;
             background-color: #fafcfd;
-            padding: 16px;
+            // padding: 16px;
             font-size: 18px;
             display: flex;
             align-items: center;

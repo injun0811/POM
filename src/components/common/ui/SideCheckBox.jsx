@@ -5,9 +5,10 @@ import { SideCheckBoxDiv } from "../../../styled/common/ui/SideCheckBox";
 
 // color : 체크될 때 색상
 // label : 체크박스 옆 표시될 내용
+// width : 전체 너비
 // onChange : 바인딩 연동 될 flag 값 (true / false)
 
-const SideCheckBox = ({ color, label, onChange }) => {
+const SideCheckBox = ({ color, label, width, onChange }) => {
     const [checked, setChecked] = useState(false);
 
     const handleChange = (e) => {
@@ -17,7 +18,7 @@ const SideCheckBox = ({ color, label, onChange }) => {
     };
 
     return (
-        <SideCheckBoxDiv color={color}>
+        <SideCheckBoxDiv color={color} width={width}>
             <div className="checkbox-container">
                 <label className={"ios-checkbox"}>
                     <input type="checkbox" id="labelText" checked={checked} onChange={handleChange} />
@@ -27,9 +28,7 @@ const SideCheckBox = ({ color, label, onChange }) => {
                             <path className="check-path" d="M4 12L10 18L20 6" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"></path>
                         </svg>
                     </div>
-                    <span htmlFor="labelText" style={{ marginLeft: "10px", fontSize: "14px" }}>
-                        {label}
-                    </span>
+                    <span htmlFor="labelText">{label}</span>
                 </label>
             </div>
         </SideCheckBoxDiv>

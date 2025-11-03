@@ -1,9 +1,12 @@
 import styled from "styled-components";
 
 export const SideCheckBoxDiv = styled.div`
+    margin: 5px;
+    width: ${({ width }) => width};
+
     .checkbox-container {
         display: flex;
-        gap: 20px;
+        gap: 10px;
         padding: 10px;
         background: #f8fafc;
         border-radius: 12px;
@@ -23,6 +26,12 @@ export const SideCheckBoxDiv = styled.div`
         cursor: pointer;
         user-select: none;
         -webkit-tap-highlight-color: transparent;
+
+        span {
+            margin-left: 10px;
+            font-size: 17px;
+            font-weight: 600;
+        }
     }
 
     .ios-checkbox input {

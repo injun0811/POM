@@ -4,6 +4,9 @@ import SelectBox from "../common/ui/SelectBox";
 import TextBox from "../common/ui/TextBox";
 import LocMapAPI from "../LocMapAPI";
 import supabase from "../../api/supabaseClient";
+import SideCheckBox from "../../components/common/ui/SideCheckBox";
+import DatePicker from "react-datepicker";
+import dayjs from "dayjs";
 
 // ScheduleAdd 컴포넌트 (바인딩 변수)
 
@@ -18,6 +21,10 @@ const ScheduleAdd = ({ open }) => {
         detailAddress: "",
         extraAddress: "",
     });
+    const [isCompleted, setIsCompleted] = useState(false);
+    const [completedDate, setCompletedDate] = useState(null);
+    const [isAlerted, setIsAlerted] = useState(false);
+    const [alertDate, setAlertDate] = useState(null);
     // Address
     const fullAddress = `${addressData.postcode} ${addressData.address} ${addressData.detailAddress} ${addressData.extraAddress}`.trim();
 
@@ -59,30 +66,73 @@ const ScheduleAdd = ({ open }) => {
                     <LocMapAPI onAddressUpdate={handleAddressChange} AddressText={fullAddress} />
                 </div>
 
-                {/* is_allday (true / false) */}
-                {/* is_holiday (true / false) */}
+                <div className="textTab">
+                    {/* is_allday (true / false) */}
+                    <SideCheckBox color={"Blue"} label={"하루종일"} width={"130px"} onChange={false} />
 
-                {/* is_completed (true / false) */}
+                    {/* is_holiday (true / false) */}
+                    <SideCheckBox color={"Pink"} label={"휴일"} width={"90px"} onChange={false} />
 
-                {/* completed_date */}
+                    {/* is_completed (true / false) */}
+                    <SideCheckBox
+                        color={"Green"}
+                        label={"완료"}
+                        width={"90px"}
+                        onChange={(checked) => {
+                            setIsCompleted(checked);
+                            if (!checked) setCompletedDate(null);
+                            else setCompletedDate(new Date());
+                        }}
+                    />
 
-                {/* is_alert (true / false) */}
+                    {/* completed_date */}
+                    <div>
+                        <DatePicker
+                            className="date"
+                            selected={completedDate}
+                            onChange={(d) => setCompletedDate(d)}
+                            showTimeSelect
+                            dateFormat="yyyy-MM-dd HH:mm"
+                            timeFormat="HH:mm"
+                            disabled={!isCompleted}
+                            placeholderText="시간을 선택하세요"
+                        />
+                        <input type="hidden" name="completedDate" id="completedDate" value={dayjs(completedDate).format("YYYY-MM-DD HH:mm")} readOnly />
+                    </div>
 
-                {/* alert_date */}
+                    {/* is_alert (true / false) */}
+                    <SideCheckBox
+                        color={"Orange"}
+                        label={"알람"}
+                        width={"90px"}
+                        onChange={(checked) => {
+                            setIsAlerted(checked);
+                            if (!checked) setAlertDate(null);
+                        }}
+                    />
+
+                    {/* alert_date */}
+                    <div>
+                        <DatePicker
+                            className="date"
+                            selected={alertDate}
+                            onChange={(d) => setAlertDate(d)}
+                            showTimeSelect
+                            dateFormat="yyyy-MM-dd HH:mm"
+                            timeFormat="HH:mm"
+                            disabled={!isAlerted}
+                            placeholderText="시간을 선택하세요"
+                        />
+                        <input type="hidden" name="alertDate" id="alertDate" value={dayjs(alertDate).format("YYYY-MM-DD HH:mm")} readOnly />
+                    </div>
+
+                    {/* category */}
+                    <SelectBox list={category} onChange={(selected) => console.log(selected)} />
+                </div>
 
                 {/* start_date */}
 
                 {/* end_date */}
-
-                {/* category */}
-                <SelectBox list={category} onChange={(selected) => console.log(selected)} />
-
-                {/* place - 주소 입력 및 지도 API 연동 */}
-
-                {/* memo - textArea */}
-                {/* </DetailDiv> */}
-
-                {/* 등록 날짜 & 업뎃 날짜 */}
 
                 {/* reg_date */}
 

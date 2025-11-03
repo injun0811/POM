@@ -51,22 +51,22 @@ const SelectBox = ({ list = [], onChange }) => {
     }, []);
 
     return (
-        <SelectBoxDiv ref={containerRef} style={{ position: "relative", width: "200px", height: "50px" }}>
+        <SelectBoxDiv ref={containerRef}>
             <input
                 className="chosenValue"
                 type="text"
                 value={inputValue}
-                placeholder={open ? "Type to filter" : "Category "}
+                placeholder={open ? "Choice.." : "Category "}
                 onFocus={handleFocus}
                 onBlur={() => setTimeout(() => setOpen(false), 200)}
                 onChange={handleInputChange}
                 autoComplete="off"
             />
             {open && (
-                <ul className="valueList open" style={{ position: "absolute", background: "#fff", border: "1px solid #ddd", width: "100%", zIndex: 2, margin: 0, padding: 0 }}>
+                <ul className="valueList open">
                     {filteredList.length > 0 ? (
                         filteredList.map((item) => (
-                            <li key={item.idx} value={item.value} onClick={() => handleItemClick(item)} style={{ listStyle: "none", padding: "5px 10px", cursor: "pointer" }}>
+                            <li key={item.idx} value={item.value} onClick={() => handleItemClick(item)}>
                                 {item.text}
                             </li>
                         ))

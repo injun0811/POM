@@ -30,12 +30,12 @@ const ETC = () => {
                 <div className="step">
                     <h3>DatePicker 라이브러리</h3>
                     <DatePicker selected={date} onChange={(d) => setDate(d)} showTimeSelect dateFormat="yyyy-MM-dd HH:mm" timeFormat="HH:mm" />
-                    <p>선택한 날짜 : {dayjs(date).format("YYYY-MM-DD HH:mm")}</p>
+                    <input type="hidden" name="completedDate" id="completedDate" value={dayjs(date).format("YYYY-MM-DD HH:mm")} readOnly />
                 </div>
 
                 <div className="step">
                     <h3>SideCheckBox</h3>
-                    <SideCheckBox color={"Green"} label={"테스트 라벨"} onChange={false} />
+                    <SideCheckBox color={"Green"} label={"테스트 라벨"} width={"100px"} onChange={false} />
                 </div>
                 <div className="step">
                     <h3>AlertModal</h3>
