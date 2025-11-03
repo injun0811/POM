@@ -43,9 +43,9 @@ export const SelectBoxDiv = styled.div`
         text-transform: uppercase;
         font-weight: 600;
         letter-spacing: 4px;
-        height: 4rem;
-        font-size: 1.1rem;
-        padding: 1rem;
+        height: 50px;
+        font-size: 18px;
+        padding: 16px;
         background-color: #fafcfd;
         border: 3px solid transparent;
         transition: 0.3s ease-in-out;
@@ -83,7 +83,7 @@ export const SelectBoxDiv = styled.div`
 
     .valueList {
         list-style: none;
-        margin-top: 4rem;
+        margin-top: 50px;
         box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.2);
         overflow: hidden;
         max-height: 0;
@@ -101,10 +101,10 @@ export const SelectBoxDiv = styled.div`
 
         li {
             position: relative;
-            height: 4rem;
+            height: 50px;
             background-color: #fafcfd;
-            padding: 1rem;
-            font-size: 1.1rem;
+            padding: 16px;
+            font-size: 18px;
             display: flex;
             align-items: center;
             cursor: pointer;

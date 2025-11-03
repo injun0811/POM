@@ -51,12 +51,12 @@ const SelectBox = ({ list = [], onChange }) => {
     }, []);
 
     return (
-        <SelectBoxDiv ref={containerRef} style={{ position: "relative", width: "300px", height: "50px" }}>
+        <SelectBoxDiv ref={containerRef} style={{ position: "relative", width: "200px", height: "50px" }}>
             <input
                 className="chosenValue"
                 type="text"
                 value={inputValue}
-                placeholder={open ? "Type to filter" : "Select state"}
+                placeholder={open ? "Type to filter" : "Category "}
                 onFocus={handleFocus}
                 onBlur={() => setTimeout(() => setOpen(false), 200)}
                 onChange={handleInputChange}
