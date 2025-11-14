@@ -1,5 +1,14 @@
 import styled from "styled-components";
 
+export const BtnFlexDiv = styled.div`
+    display: flex;
+    position: absolute;
+    top: 21%;
+    right: 28%;
+    gap: 10px;
+    height: 50px;
+`;
+
 export const RegistForm = styled.div`
     padding-top: 20px;
     opacity: ${({ $open }) => ($open ? 1 : 0)};
@@ -10,6 +19,12 @@ export const RegistForm = styled.div`
     .textTab {
         display: flex;
         gap: 10px;
+
+        .sectionDiv {
+            display: flex;
+            background: darksalmon;
+            border-radius: 15px;
+        }
     }
 
     .date {

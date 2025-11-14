@@ -13,13 +13,20 @@ import cancel from "../../../assets/icons/cancel.png";
 // popupHeight : TextArea 팝업 높이
 // popupTop : TextArea 팝업 top 위치
 // popupLeft : TextArea 팝업 left 위치
+// value : TextBox 값 바인딩 변수
+// onChange : TextBox 값 변경 시 호출 함수
 
 // 바인딩 예시
-// <TextBox desc={"Desc"} width={"200px"} height={"60px"} subDiv={true} setSubDiv={setSubDiv} popupWidth={"1170px"} popupHeight={"200px"} popupTop={"690px"} popupLeft={"370px"} />
+// <TextBox
+//      desc={"Desc"} width={"200px"} height={"60px"}
+//      subDiv={true} setSubDiv={setSubDiv}
+//      popupWidth={"1170px"} popupHeight={"200px"}
+//      popupTop={"690px"} popupLeft={"370px"}
+//      value={value} onChange={onChange}
+// />
 
-const TextBox = ({ desc, width, height, subDiv, setSubDiv, popupWidth, popupHeight, popupTop, popupLeft }) => {
+const TextBox = ({ desc, width, height, subDiv, setSubDiv, popupWidth, popupHeight, popupTop, popupLeft, value, onChange }) => {
     const [isActive, setIsActive] = useState(false);
-    const [textValue, setTextValue] = useState("");
     const textAreaRef = useRef(null);
     const textAreaDivRef = useRef(null);
     const labelRef = useRef(null);
@@ -43,20 +50,20 @@ const TextBox = ({ desc, width, height, subDiv, setSubDiv, popupWidth, popupHeig
 
     useEffect(() => {
         if (labelRef.current) {
-            if (textValue && textValue.trim() !== "") {
+            if (value && value.trim() !== "") {
                 labelRef.current.classList.add("active");
             } else {
                 labelRef.current.classList.remove("active");
             }
         }
-    }, [textValue]);
+    }, [value]);
 
     // not open Div, just TextBox
     if (!subDiv) {
         return (
             <TextBoxDiv style={{ width: width, height: height }}>
                 <div className="input">
-                    <input type="text" required autoComplete="off" value={textValue} onChange={(e) => setTextValue(e.target.value)} />
+                    <input type="text" required autoComplete="off" value={value || ""} onChange={onChange} />
                     <label ref={labelRef} htmlFor="name">
                         {desc}
                     </label>
@@ -70,7 +77,7 @@ const TextBox = ({ desc, width, height, subDiv, setSubDiv, popupWidth, popupHeig
             <>
                 <TextBoxDiv style={{ width: width, height: height }}>
                     <div className="input" onClick={() => !isActive && setIsActive(true)}>
-                        <input type="text" readOnly style={{ cursor: "pointer" }} onClick={() => setIsActive(true)} value={textValue} />
+                        <input type="text" readOnly style={{ cursor: "pointer" }} value={value || ""} onClick={() => setIsActive(true)} />
                         <label ref={labelRef} htmlFor="name">
                             {desc}
                         </label>
@@ -90,7 +97,7 @@ const TextBox = ({ desc, width, height, subDiv, setSubDiv, popupWidth, popupHeig
                                 <img src={cancel} alt="cancel" />
                             </button>
                         </div>
-                        <textarea ref={textAreaRef} value={textValue} onChange={(e) => setTextValue(e.target.value)} />
+                        <textarea ref={textAreaRef} value={value || ""} onChange={onChange} />
                     </div>
                 </TextAreaDiv>
             </>

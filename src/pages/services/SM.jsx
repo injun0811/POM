@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { ScheduleProvider } from "../../contexts/ScheduleContext";
 import Year from "../../components/common/Year";
 import ScheduleAdd from "../../components/common/ScheduleAdd";
 import supabase from "../../api/supabaseClient";
@@ -7,8 +8,8 @@ import { SMDiv } from "../../styled/page/services/SM";
 
 const SM = () => {
     const [scheduleList, setScheduleList] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [showAdd, setShowAdd] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     // 일정 리스트 가져오기
     useEffect(() => {
@@ -23,29 +24,22 @@ const SM = () => {
         fetchScheduleList();
     }, []);
 
-    // 일정 등록 버튼 함수
-    const scheduleAddFunc = () => {};
-
-    // 초기화 버튼 함수
-    const reset = () => {};
-
     return (
-        <SMDiv>
-            <div>
-                <h1>일정 관리</h1>
-                <h2>schedule management</h2>
-
+        <ScheduleProvider>
+            <SMDiv>
                 <div className="btnFlex">
-                    {showAdd ? <PagingButton name={"일정 등록"} onclick={() => scheduleAddFunc()} /> : null}
-                    {showAdd ? <PagingButton name={"초기화"} onclick={() => reset()} /> : null}
                     <PagingButton name={showAdd ? "등록 취소" : "일정 등록"} onClick={() => setShowAdd((v) => !v)} />
                 </div>
                 <div>
-                    <Year year={2025} scheduleList={scheduleList} loading={loading} />
+                    <h1>일정 관리</h1>
+                    <h2>schedule management</h2>
+                    <div>
+                        <Year year={2025} scheduleList={scheduleList} loading={loading} />
+                    </div>
                 </div>
-            </div>
-            {<ScheduleAdd open={showAdd} />}
-        </SMDiv>
+                {<ScheduleAdd open={showAdd} />}
+            </SMDiv>
+        </ScheduleProvider>
     );
 };
 
