@@ -15,29 +15,46 @@ import dayjs from "dayjs";
 // open : 등록 폼 열기 여부
 
 const ScheduleAdd = ({ open }) => {
-    const { scheduleData, setScheduleData } = useSchedule();
-    const [category, setCategory] = useState([]);
     const [subDiv, setSubDiv] = useState(true);
+
+    // supabase에 insert 될 일정 데이터
+    const { scheduleData, setScheduleData } = useSchedule();
+
+    // 카테고리 리스트
+    const [category, setCategory] = useState([]);
+    // 선택된 카테고리
+    const [selectedCategory, setSelectedCategory] = useState(null);
+
     const [addressData, setAddressData] = useState({
         postcode: "",
         address: "",
         detailAddress: "",
         extraAddress: "",
     });
+    const [fullAddress, setFullAddress] = useState(null);
+
     // 완료 체크 상태값
     const [isCompleted, setIsCompleted] = useState(false);
     const [completedDate, setCompletedDate] = useState(null);
+
     // 알람 체크 상태값
     const [isAlerted, setIsAlerted] = useState(false);
     const [alertDate, setAlertDate] = useState(null);
-    // // 시작 체크 상태값
-    const [startDate, setStartDate] = useState(null);
-    // // 종료 체크 상태값
-    const [endDate, setEndDate] = useState(null);
+
+    // 휴일 체크 상태값
+    const [isHoliday, setIsHoliday] = useState(false);
+
     // 하루 종일 상태 값
     const [isAllday, setIsAllday] = useState(false);
-    // Address
-    const fullAddress = `${addressData.postcode} ${addressData.address} ${addressData.detailAddress} ${addressData.extraAddress}`.trim();
+    // 시작 체크 상태값
+    const [startDate, setStartDate] = useState(null);
+    // 종료 체크 상태값
+    const [endDate, setEndDate] = useState(null);
+
+    // Address [addressData가 바뀔 때마다 fullAddress 갱신]
+    useEffect(() => {
+        setFullAddress(`${addressData.postcode} ${addressData.address} ${addressData.detailAddress} ${addressData.extraAddress}`.trim());
+    }, [addressData]);
 
     const handleAddressChange = useCallback((newData) => {
         setAddressData(newData);
@@ -76,7 +93,7 @@ const ScheduleAdd = ({ open }) => {
     // 일정 등록 버튼 함수
     const scheduleAddFunc = async () => {
         // 1. 전체 주소 조합
-        const fullAddress = [scheduleData.address?.postcode, scheduleData.address?.address, scheduleData.address?.detailAddress, scheduleData.address?.extraAddress].filter(Boolean).join(" ");
+        setFullAddress([scheduleData.address?.postcode, scheduleData.address?.address, scheduleData.address?.detailAddress, scheduleData.address?.extraAddress].filter(Boolean).join(" "));
         // 2-1. 날짜 필드 포맷 변환
         const formatDate = (date) => (date ? dayjs(date).format("YYYY-MM-DD HH:mm:ss") : null);
         // 2-2. 필요한 모든 날짜 필드에 적용
@@ -101,7 +118,28 @@ const ScheduleAdd = ({ open }) => {
     };
 
     // 초기화 버튼 함수
-    const reset = () => {};
+    const reset = () => {
+        setScheduleData({});
+        setAddressData({
+            postcode: "",
+            address: "",
+            detailAddress: "",
+            extraAddress: "",
+        });
+        setFullAddress(null);
+
+        setSelectedCategory(null);
+
+        setIsCompleted(false);
+        setIsAlerted(false);
+        setIsAllday(false);
+        setIsHoliday(false);
+
+        setCompletedDate(null);
+        setAlertDate(null);
+        setStartDate(null);
+        setEndDate(null);
+    };
 
     return (
         <>
@@ -153,10 +191,17 @@ const ScheduleAdd = ({ open }) => {
                     />
 
                     {/* place - API (open div) */}
-                    <LocMapAPI onAddressUpdate={handleAddressChange} AddressText={fullAddress} />
+                    <LocMapAPI onAddressUpdate={handleAddressChange} AddressText={fullAddress} addressData={addressData} />
 
                     {/* category */}
-                    <SelectBox list={category} onChange={(selected) => setScheduleData((prev) => ({ ...prev, category: selected.value }))} />
+                    <SelectBox
+                        list={category}
+                        value={selectedCategory}
+                        onChange={(selected) => {
+                            setSelectedCategory(selected);
+                            setScheduleData((prev) => ({ ...prev, category: selected?.value ?? "" }));
+                        }}
+                    />
                 </div>
 
                 <div className="textTab">
@@ -166,6 +211,7 @@ const ScheduleAdd = ({ open }) => {
                             color={"Blue"}
                             label={"하루종일"}
                             width={"130px"}
+                            checked={isAllday}
                             onChange={(checked) => {
                                 if (checked) setStartDate(null);
                                 if (checked) setEndDate(null);
@@ -212,7 +258,16 @@ const ScheduleAdd = ({ open }) => {
                     </div>
 
                     {/* is_holiday (true / false) */}
-                    <SideCheckBox color={"Pink"} label={"휴일"} width={"90px"} onChange={(checked) => setScheduleData((prev) => ({ ...prev, is_holiday: checked }))} />
+                    <SideCheckBox
+                        color={"Pink"}
+                        label={"휴일"}
+                        width={"90px"}
+                        checked={isHoliday}
+                        onChange={(checked) => {
+                            setIsHoliday(checked);
+                            setScheduleData((prev) => ({ ...prev, is_holiday: checked }));
+                        }}
+                    />
 
                     <div className="sectionDiv">
                         {/* is_completed (true / false) */}
@@ -220,6 +275,7 @@ const ScheduleAdd = ({ open }) => {
                             color={"Green"}
                             label={"완료"}
                             width={"90px"}
+                            checked={isCompleted}
                             onChange={(checked) => {
                                 setIsCompleted(checked);
                                 if (!checked) setCompletedDate(null);
@@ -253,6 +309,7 @@ const ScheduleAdd = ({ open }) => {
                             color={"Orange"}
                             label={"알람"}
                             width={"90px"}
+                            checked={isAlerted}
                             onChange={(checked) => {
                                 setIsAlerted(checked);
                                 if (!checked) setAlertDate(null);

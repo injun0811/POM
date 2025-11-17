@@ -12,16 +12,16 @@ import { SelectBoxDiv } from "../../../styled/common/ui/SelectBox";
 // value : 선택 시 input에 들어가는 값
 // text : 리스트에 보여지는 값
 
-const SelectBox = ({ list = [], onChange }) => {
-    const [inputValue, setInputValue] = useState("");
+const SelectBox = ({ list = [], value, onChange }) => {
     const [open, setOpen] = useState(false);
     const containerRef = useRef();
 
+    const inputValue = value ? value.text : "";
+
     // li 클릭 시 value 반영
     const handleItemClick = (item) => {
-        setInputValue(item.text);
-        setOpen(false);
         if (onChange) onChange(item);
+        setOpen(false);
     };
 
     // focus 이벤트

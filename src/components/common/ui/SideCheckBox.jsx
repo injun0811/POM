@@ -8,12 +8,9 @@ import { SideCheckBoxDiv } from "../../../styled/common/ui/SideCheckBox";
 // width : 전체 너비
 // onChange : 바인딩 연동 될 flag 값 (true / false)
 
-const SideCheckBox = ({ color, label, width, onChange }) => {
-    const [checked, setChecked] = useState(false);
-
+const SideCheckBox = ({ color, label, width, checked, onChange }) => {
     const handleChange = (e) => {
         const isChecked = e.target.checked;
-        setChecked(isChecked);
         if (onChange) onChange(isChecked);
     };
 

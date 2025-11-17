@@ -4,24 +4,36 @@ import FormButton from "../components/common/ui/FormButton";
 import { LocationAPIDiv } from "../styled/api/LocaitionAPI";
 import AlertModal from "../components/common/ui/AlertModal";
 
-const LocationAPI = ({ onAddressChange, setIsActive, setSubDiv }) => {
+const LocationAPI = ({ addressData = {}, onAddressChange, setIsActive, setSubDiv }) => {
     const layerRef = useRef(null);
-    const [postcode, setPostcode] = useState("");
-    const [address, setAddress] = useState("");
-    const [detailAddress, setDetailAddress] = useState("");
-    const [extraAddress, setExtraAddress] = useState("");
+
+    const [postcode, setPostcode] = useState(addressData.postcode || "");
+    const [address, setAddress] = useState(addressData.address || "");
+    const [detailAddress, setDetailAddress] = useState(addressData.detailAddress || "");
+    const [extraAddress, setExtraAddress] = useState(addressData.extraAddress || "");
+
     const [showMap, setShowMap] = useState(false);
     const [alertOpen, setAlertOpen] = useState(false); // AlertModal
 
+    // 주소 검색 완료 시, 상위에 addressData 전달!
+    const handleCompleteAddress = (newPostcode, newAddress, newDetailAddress, newExtraAddress) => {
+        if (onAddressChange) {
+            onAddressChange({
+                postcode: newPostcode,
+                address: newAddress,
+                detailAddress: newDetailAddress,
+                extraAddress: newExtraAddress,
+            });
+        }
+    };
+
     // 상위 전달 함수 (변경 시 자동 호출)
     useEffect(() => {
-        onAddressChange({
-            postcode,
-            address,
-            detailAddress,
-            extraAddress,
-        });
-    }, [postcode, address, detailAddress, extraAddress, onAddressChange]);
+        setPostcode(addressData.postcode || "");
+        setAddress(addressData.address || "");
+        setDetailAddress(addressData.detailAddress || "");
+        setExtraAddress(addressData.extraAddress || "");
+    }, [addressData]);
 
     const closeDaumPostcode = () => {
         if (layerRef.current) layerRef.current.style.display = "none";
@@ -72,6 +84,8 @@ const LocationAPI = ({ onAddressChange, setIsActive, setSubDiv }) => {
                 setPostcode(data.zonecode);
                 setAddress(addr);
                 closeDaumPostcode();
+
+                handleCompleteAddress(data.zonecode, addr, "", extraAddr);
             },
             width: "100%",
             height: "100%",
@@ -99,9 +113,7 @@ const LocationAPI = ({ onAddressChange, setIsActive, setSubDiv }) => {
     const execMapAPI = () => {
         // 도로명번호 및 주소 입력 확인
         if (!postcode || !address) {
-            // 추 후에 alert 대신 모달로 변경 예정
             setAlertOpen(true);
-            //alert("주소를 먼저 입력해주세요.");
             return;
         }
         // Kakao API 로드 여부 및 객체 정의 여부 확인
@@ -149,13 +161,22 @@ const LocationAPI = ({ onAddressChange, setIsActive, setSubDiv }) => {
     return (
         <LocationAPIDiv>
             <div className="spaceEvenly">
-                <MiniTextBox width={"400px"} placeholder={"참고항목"} value={extraAddress} readOnly />
-                <MiniTextBox width={"600px"} placeholder={"주소"} value={address} readOnly />
+                <MiniTextBox width={"400px"} placeholder={"참고항목"} value={extraAddress || ""} readOnly />
+                <MiniTextBox width={"600px"} placeholder={"주소"} value={address || ""} readOnly />
             </div>
             <div className="flex">
                 <div className="spaceEvenly left">
-                    <MiniTextBox width={"140px"} placeholder={"우편번호"} value={postcode} readOnly />
-                    <MiniTextBox width={"300px"} placeholder={"상세주소"} value={detailAddress} onChange={(e) => setDetailAddress(e.target.value)} />
+                    <MiniTextBox width={"140px"} placeholder={"우편번호"} value={postcode || ""} readOnly />
+                    <MiniTextBox
+                        width={"300px"}
+                        placeholder={"상세주소"}
+                        value={detailAddress || ""}
+                        onChange={(e) => {
+                            const newDetail = e.target.value;
+                            setDetailAddress(newDetail);
+                            handleCompleteAddress(postcode, address, newDetail, extraAddress);
+                        }}
+                    />
                 </div>
                 <div className="spaceEvenly right">
                     <FormButton onClick={execDaumPostcode} text={"우편번호 찾기"} width={"150px"} height={"50px"} fontSize={"19px"} />

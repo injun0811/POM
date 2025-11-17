@@ -3,7 +3,7 @@ import cancel from "../assets/icons/cancel.png";
 import LocationAPI from "../api/LocationAPI";
 import { TextBoxDiv, TextAreaDiv } from "../styled/LocMapAPI";
 
-const LocMapAPI = ({ textAreaRef, textAreaDivRef, onAddressUpdate, AddressText }) => {
+const LocMapAPI = ({ onAddressUpdate, AddressText, addressData = {}, textAreaDivRef }) => {
     const [isActive, setIsActive] = useState(false);
     const [subDiv, setSubDiv] = useState(true);
     const APIDivRef = useRef(null);
@@ -22,7 +22,8 @@ const LocMapAPI = ({ textAreaRef, textAreaDivRef, onAddressUpdate, AddressText }
 
     useEffect(() => {
         if (labelRef.current) {
-            if (AddressText && AddressText.trim() !== "") {
+            const text = typeof AddressText === "string" ? AddressText : "";
+            if (text.trim() !== "") {
                 labelRef.current.classList.add("active");
             } else {
                 labelRef.current.classList.remove("active");
@@ -34,7 +35,7 @@ const LocMapAPI = ({ textAreaRef, textAreaDivRef, onAddressUpdate, AddressText }
         <>
             <TextBoxDiv>
                 <div className="input" onClick={() => !isActive && setIsActive(true)}>
-                    <input type="text" readOnly style={{ cursor: "pointer" }} onClick={() => setIsActive(true)} value={AddressText} />
+                    <input type="text" readOnly style={{ cursor: "pointer" }} onClick={() => setIsActive(true)} value={AddressText || ""} />
                     <label htmlFor="name" ref={labelRef}>
                         Address
                     </label>
@@ -43,7 +44,7 @@ const LocMapAPI = ({ textAreaRef, textAreaDivRef, onAddressUpdate, AddressText }
             <TextAreaDiv $active={isActive} ref={textAreaDivRef}>
                 <div className="background" onClick={() => setIsActive(false)} />
                 <div className="popup-content" onClick={(e) => e.stopPropagation()}>
-                    <LocationAPI onAddressChange={onAddressUpdate} setIsActive={setIsActive} setSubDiv={setSubDiv} />
+                    <LocationAPI addressData={addressData} onAddressChange={onAddressUpdate} setIsActive={setIsActive} setSubDiv={setSubDiv} />
                     <button
                         className="title"
                         onClick={() => {
